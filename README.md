@@ -20,7 +20,7 @@ Liste des technologies utilisées dans le projet :
 ***
 Pour installer le projet vous pouvez le cloner avec une clé SSH, ou bien télécharger le dossier ZIP.
 ```
-$ git clone git@github.com:tanguy-sudo/Bomberman.git
+$ git@github.com:tanguy-sudo/Bomberman-network.git
 
 ```
  
