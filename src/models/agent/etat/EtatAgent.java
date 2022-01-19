@@ -1,6 +1,6 @@
 package models.agent.etat;
 /**
- * interface qui indique l'état d'un agent
+ * interface qui indique l'Ã©tat d'un agent
  * @author tanguy
  *
  */

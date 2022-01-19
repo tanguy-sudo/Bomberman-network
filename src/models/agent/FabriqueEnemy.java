@@ -6,7 +6,7 @@ import models.strategy.RaijonStrategy;
 import models.strategy.SimpleStrategy;
 import utils.InfoAgent;
 /**
- * Fabrique un ennemi et applique une stratégie en fonction du niveau
+ * Fabrique un ennemi et applique une stratÃ©gie en fonction du niveau
  * @author tanguy
  *
  */

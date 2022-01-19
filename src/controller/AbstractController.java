@@ -3,7 +3,7 @@ import models.*;
 /**
  * 
  * @author tanguy
- * Classe qui définit les fonctions principales d'un contrôleur
+ * Classe qui dÃ©finit les fonctions principales d'un contrÃ´leur
  */
 public abstract class AbstractController {
 	
@@ -11,7 +11,7 @@ public abstract class AbstractController {
 	protected String pMapName;
 	
 	/**
-	 *  Arrêt et réinitialisation de la partie
+	 *  ArrÃªt et rÃ©initialisation de la partie
 	 */
 	public void restart() {
 		this.pGame.restart(pMapName);
@@ -20,28 +20,28 @@ public abstract class AbstractController {
 	}
 	
 	/**
-	 *  Passage manuel d'une étape
+	 *  Passage manuel d'une Ã©tape
 	 */
 	public void step(){
 		this.pGame.step();
 	}
 	
 	/**
-	 *  Passage automatique des étapes
+	 *  Passage automatique des Ã©tapes
 	 */
 	public void play() {
 		this.pGame.launch();
 	}
 	
 	/*
-	 *  Interruption du passage automatique des étapes
+	 *  Interruption du passage automatique des Ã©tapes
 	 */
 	public void pause() {
 		this.pGame.pause();
 	}
 	
 	/**
-	 *  Réglage de la vitesse du jeu
+	 *  RÃ©glage de la vitesse du jeu
 	 * @param speed : Vitesse du jeu
 	 */
 	public void setSpeed(double speed) {

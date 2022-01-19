@@ -2,7 +2,7 @@ package models.agent.etat;
 
 import models.agent.Agent;
 /**
- * Classe indiquant l'état sans effet
+ * Classe indiquant l'Ã©tat sans effet
  * @author tanguy
  *
  */

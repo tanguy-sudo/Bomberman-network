@@ -5,7 +5,7 @@ import models.agent.Agent;
 /**
  * 
  * @author tanguy
- * Classe qui créé un itérator sur une liste d'agents
+ * Classe qui crÃ©Ã© un itÃ©rator sur une liste d'agents
  */
 public class AgentIterator implements MyIterator{
 	private ArrayList<Agent> pListBomberman;
@@ -30,7 +30,7 @@ public class AgentIterator implements MyIterator{
         // on regarde si l'agent est vivant
         else if (this.pListBomberman.get(position).getLiving()) return true;
         else {
-        	// si l'agent n'est pas vivant on regarde l'élement suivant
+        	// si l'agent n'est pas vivant on regarde l'ï¿½lement suivant
         	while(position < this.pListBomberman.size()) {
         		position = position + 1;
         		if(position >= this.pListBomberman.size() || this.pListBomberman.get(position) == null) return false;

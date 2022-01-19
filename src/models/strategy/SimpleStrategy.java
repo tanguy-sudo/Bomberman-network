@@ -6,7 +6,7 @@ import models.BombermanGame;
 import models.agent.Agent;
 import utils.AgentAction;
 /**
- * Stratégie aléatoire
+ * StratÃ©gie alÃ©atoire
  * @author tanguy
  *
  */

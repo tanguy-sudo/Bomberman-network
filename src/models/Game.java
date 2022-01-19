@@ -5,7 +5,7 @@ import utils.AgentAction;
 /**
  * 
  * @author tanguy
- * Classe Qui implémente les fonctions principales d'une partie
+ * Classe Qui implÃ©mente les fonctions principales d'une partie
  */
 public abstract class Game implements Runnable{
 	//Attributs
@@ -54,7 +54,7 @@ public abstract class Game implements Runnable{
 	}
 	
 	/**
-	 *  Lance le jeu en pas à pas
+	 *  Lance le jeu en pas Ã  pas
 	 */
 	public void run() {
 		while(this.pIsRunning) {
@@ -102,7 +102,7 @@ public abstract class Game implements Runnable{
    
     /**
      * 
-     * @return Le nombre de tours effectué
+     * @return Le nombre de tours effectuÃ©
      */
     public int getTurn() {
     	return this.pTurn;
@@ -116,7 +116,7 @@ public abstract class Game implements Runnable{
     	this.pTime = (long) (1000 / speed);
     }
 	
-	//Méthodes abstraite
+	//Mï¿½thodes abstraite
 	public abstract void gameOver();
 	public abstract void takeTurn();
 	public abstract void initializeGame();

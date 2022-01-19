@@ -41,7 +41,7 @@ public class ViewCommand implements PropertyChangeListener {
 		
 		this.pAbstractController = abstractController;
 		
-		// création de l'interface graphique
+		// crï¿½ation de l'interface graphique
 		window = new JFrame("Command (map : " + fileName + ", level : " + niveau +")");
 		
 		JPanel globalpanel = new JPanel();
@@ -115,7 +115,7 @@ public class ViewCommand implements PropertyChangeListener {
 		this.etat = new EtatRestart(this);
 		
 		
-		// Ajout des écouteurs d'actions sur les boutons
+		// Ajout des ï¿½couteurs d'actions sur les boutons
 		this.restartButton.addActionListener(new ActionListener() {		
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
@@ -159,7 +159,7 @@ public class ViewCommand implements PropertyChangeListener {
 		
 	}
 
-	// Mets a jour la valeur du nombre de tours
+	// Mets Ã  jour la valeur du nombre de tours
 	@Override
 	public void propertyChange(PropertyChangeEvent arg0) {
 		if(arg0.getPropertyName() == "pTurn") {

@@ -4,7 +4,7 @@ import models.BombermanGame;
 import models.agent.Agent;
 import utils.AgentAction;
 /**
- * Interface des stratégies
+ * Interface des stratÃ©gies
  * @author tanguy
  *
  */

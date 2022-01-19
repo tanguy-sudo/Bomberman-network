@@ -8,7 +8,7 @@ import utils.AgentAction;
  * 
  * @author tanguy
  * S'il est invincible fonce vers le bomberman
- * Il peut manger ses alliées
+ * Il peut manger ses alliÃ©es
  */
 public class RaijonStrategy extends Strategy{
 	@Override

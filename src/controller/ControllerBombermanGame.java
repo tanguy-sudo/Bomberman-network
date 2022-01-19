@@ -12,7 +12,7 @@ import java.util.ArrayList;
 /**
  * 
  * @author tanguy
- * Classe qui gère les différentes vues ainsi que les différents modèles
+ * Classe qui gÃ¨re les diffÃ©rentes vues ainsi que les diffÃ©rents modules
  */
 public class ControllerBombermanGame extends AbstractController{
 	
@@ -22,7 +22,7 @@ public class ControllerBombermanGame extends AbstractController{
 	private ViewEnd pViewEnd;
 	
 	/**
-	 * Initialise les différents attributs et lance la vue ViewStart
+	 * Initialise les diffÃ©rents attributs et lance la vue ViewStart
 	 */
 	public ControllerBombermanGame() {
 		this.pMapName = "";
@@ -66,7 +66,7 @@ public class ControllerBombermanGame extends AbstractController{
 	
 	/**
 	 * Affiche la vue de fin de partie
-	 * @param result : Indique si la partie est gagné, perdu ou s'il y a égalité
+	 * @param result : Indique si la partie est gagnï¿½, perdu ou s'il y a Ã©galitÃ©
 	 * @param listAgentEnemy : Liste des agents ennemis
 	 * @param listAgentAlly Liste des agents bombermans
 	 */
@@ -107,7 +107,7 @@ public class ControllerBombermanGame extends AbstractController{
 	}
 	
 	/**
-	 * Mets à jour l'action que l'utilisateur souhaite effectuer avec le bomberman
+	 * Mets Ã  jour l'action que l'utilisateur souhaite effectuer avec le bomberman
 	 * @param action : Action que l'utilisateur a saisie au clavier
 	 */
 	public void updateActionBomberman(AgentAction action) {

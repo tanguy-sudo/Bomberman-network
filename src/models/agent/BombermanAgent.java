@@ -4,7 +4,7 @@ import models.strategy.Strategy;
 import utils.AgentAction;
 import utils.InfoAgent;
 /**
- * Classe représentant un bomberman
+ * Classe reprÃ©sentant un bomberman
  * @author tanguy
  *
  */
@@ -26,7 +26,7 @@ public class BombermanAgent extends Agent{
 	}
 	
 	/**
-	 * Mets à jour l'action de l'utilisateur
+	 * Mets Ã  jour l'action de l'utilisateur
 	 * @param action
 	 */
 	public void setAtion(AgentAction action) {

@@ -1,6 +1,6 @@
 package models;
 /**
- * Interface d'un itérator
+ * Interface d'un itÃ©rator
  * @author tanguy
  *
  */

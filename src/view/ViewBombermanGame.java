@@ -47,7 +47,7 @@ public class ViewBombermanGame  implements PropertyChangeListener {
 	}
 	
 	/**
-	 * Événements clavier
+	 * Ã©vÃªnements clavier
 	 */
     public void initKeyListener() {
         this.window.addKeyListener(new KeyListener() {

@@ -12,7 +12,7 @@ import javax.swing.JPanel;
 public class ViewSimpleGame {
 	public ViewSimpleGame() {
 		
-		// création de l'interface graphique
+		// crÃ©ation de l'interface graphique
 		JFrame window = new JFrame("Game");
 		
 		JPanel Globalpanel = new JPanel();

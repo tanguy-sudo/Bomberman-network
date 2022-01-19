@@ -5,7 +5,7 @@ import models.strategy.BombermanStrategy;
 import models.strategy.SimpleStrategy;
 import utils.InfoAgent;
 /**
- * Fabrique un Bomberman et applique une stratégie en fonction du niveau de si l'utilisateur joue manuellement
+ * Fabrique un Bomberman et applique une stratÃ©gie en fonction du niveau de si l'utilisateur joue manuellement
  * @author tanguy
  *
  */

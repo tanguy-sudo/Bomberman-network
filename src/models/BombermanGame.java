@@ -17,7 +17,7 @@ import controller.ControllerBombermanGame;
 /**
  * 
  * @author tanguy
- * Classe qui stocke les informations sur une partie et fait jouer les différents agents
+ * Classe qui stocke les informations sur une partie et fait jouer les diffÃ©rents agents
  */
 public class BombermanGame extends Game {
 
@@ -32,12 +32,12 @@ public class BombermanGame extends Game {
 	private boolean pManual;
 
 	/**
-	 * Initialise les différents attributs
+	 * Initialise les diffÃ©rents attributs
 	 * @param maxturn : Nombre de tours maximum dans la partie
-	 * @param inputMap : La map qui contient les données
+	 * @param inputMap : La map qui contient les donnÃ©es
 	 * @param niveau : Le niveau de la partie
-	 * @param controller : le contrôleur qui gère ce modèle
-	 * @param manual : Booléen indiquant si la partie est effectué en mode manuel par l'utilisateur
+	 * @param controller : le contrÃ´leur qui gÃ¨re ce module
+	 * @param manual : Boolï¿½en indiquant si la partie est effectuÃ© en mode manuel par l'utilisateur
 	 */
 	public BombermanGame(int maxturn, InputMap inputMap, int niveau, ControllerBombermanGame controller, boolean manual) {
 		super(maxturn);
@@ -68,20 +68,20 @@ public class BombermanGame extends Game {
 		}	
 		
 		if(countAgent == 0 && countEnemy == 0) {
-			// égalité
+			// ï¿½galitï¿½
 			this.pController.lunchViewEnd(0, this.pListBombermanEnemy, this.pListBombermanAgent);
 		}
 		else if(countAgent == 0) {
 			// perdu
 			this.pController.lunchViewEnd(1, this.pListBombermanEnemy, this.pListBombermanAgent);
 		}else if(countEnemy == 0) {
-			// gagné
+			// gagnï¿½
 			this.pController.lunchViewEnd(2, this.pListBombermanEnemy, this.pListBombermanAgent);
 		}
 	}
 
 	/**
-	 * Redémarre une partie
+	 * RedÃ©marre une partie
 	 */
 	@Override
 	public void restart(String mapName) {
@@ -92,7 +92,7 @@ public class BombermanGame extends Game {
 			this.pListBombermanEnemy.clear();
 			this.pListBomb.clear();
 			this.pListItems.clear();
-			// Préviens l'observer des changements d'informations
+			// Prï¿½viens l'observer des changements d'informations
 			pSupport.firePropertyChange("pGame", null, this);
 		}catch(Exception e) {
 			
@@ -100,7 +100,7 @@ public class BombermanGame extends Game {
 	}
 
 	/**
-	 * Effectue un tour pour chacun des bombermans et des monstres ennemis, et mets à jour l'état des bombes
+	 * Effectue un tour pour chacun des bombermans et des monstres ennemis, et mets Ã  jour l'Ã©tat des bombes
 	 */
 	@Override
 	public void takeTurn() {
@@ -182,7 +182,7 @@ public class BombermanGame extends Game {
 	}
 
 	/**
-	 * Initialise une partie en fabriquant les différents Bombermans et monstres
+	 * Initialise une partie en fabriquant les diffÃ©rents Bombermans et monstres
 	 */
 	@Override
 	public void initializeGame() {
@@ -222,7 +222,7 @@ public class BombermanGame extends Game {
 	}
 	
 	/**
-	 * Mets à jour l'action de l'utilisateur dans la classe bombermanAgent
+	 * Mets Ã  jour l'action de l'utilisateur dans la classe bombermanAgent
 	 */
 	@Override
 	public void updateActionUser(AgentAction action) {
@@ -231,7 +231,7 @@ public class BombermanGame extends Game {
 	}
 
 	/**
-	 * @return La inputmap utilisée
+	 * @return La inputmap utilisÃ©e
 	 */
 	public InputMap getInputMap() {
 		return this.pInputMap;
@@ -247,7 +247,7 @@ public class BombermanGame extends Game {
 
 	/**
 	 * 
-	 * @return La liste des agents alliées comme ennemies
+	 * @return La liste des agents alliÃ©es comme ennemies
 	 */
 	public ArrayList<InfoAgent> getListAgent() {
 		ArrayList<InfoAgent> listAgent = new ArrayList<InfoAgent>();
@@ -277,7 +277,7 @@ public class BombermanGame extends Game {
 	}
 
 	/**
-	 * Fonction qui détermine si une action est possible
+	 * Fonction qui dÃ©termine si une action est possible
 	 * @param agent : Agent sur qui on souhaite effectuer une action 
 	 * @param action : L'action que l'on souhaite faire
 	 * @return Retourne vrai si cette action est possible
@@ -366,7 +366,7 @@ public class BombermanGame extends Game {
 	}
 
 	/**
-	 * Modifie les coordonnées d'un agent
+	 * Modifie les coordonnÃ©es d'un agent
 	 * @param agent : Agent sur qui on souhaite effectuer une action 
 	 * @param action : L'action que l'on souhaite faire
 	 */
@@ -378,8 +378,8 @@ public class BombermanGame extends Game {
 
 	/**
 	 * Pose une bombe si c'est possible
-	 * @param coordX : Coordonnées X de la bombe
-	 * @param coordY : Coordonnées Y de la bombe
+	 * @param coordX : CoordonnÃ©es X de la bombe
+	 * @param coordY : CoordonnÃ©es Y de la bombe
 	 * @param agent : Agent qui souhaite poser une bombe
 	 */
 	public void putBomb(int coordX, int coordY, Agent agent) {
@@ -387,7 +387,7 @@ public class BombermanGame extends Game {
 	}
 
 	/**
-	 * Regarde si un agent ou un ennemi est là et élimine le
+	 * Regarde si un agent ou un ennemi est lÃ  et Ã©limine le
 	 * @param AgentEnemy : Agent qui fait l'action
 	 * @param action : Action que l'on fait
 	 */
@@ -431,9 +431,9 @@ public class BombermanGame extends Game {
 	}
 
 	/**
-	 * Retourne le prochain état d'une bombe
+	 * Retourne le prochain Ã©tat d'une bombe
 	 * @param state : Etat actuel d'une bombe
-	 * @return Le prochain état d'une bombe
+	 * @return Le prochain Ã©tat d'une bombe
 	 */
 	public StateBomb nextState(StateBomb state) {
 		switch (state) {
@@ -452,10 +452,10 @@ public class BombermanGame extends Game {
 	}
 
 	/**
-	 * Détruit les murs cassables
-	 * @param coordX : Coordonnées X de la bombe
-	 * @param coordY: Coordonnées Y de la bombe
-	 * @param range : Porté de la bombe
+	 * DÃ©truit les murs cassables
+	 * @param coordX : CoordonnÃ©es X de la bombe
+	 * @param coordY: CoordonnÃ©es Y de la bombe
+	 * @param range : Porter de la bombe
 	 */
 	public void destroyWall(int coordX, int coordY, int range) {
 		for (int i = 0; i <= range; i++) {
@@ -481,9 +481,9 @@ public class BombermanGame extends Game {
 	}
 
 	/**
-	 * Génère un item aux coordonnées d'un mur cassé
-	 * @param coordX : Coordonnées X de l'item
-	 * @param coordY: Coordonnées Y de l'item
+	 * GÃ©nÃ¨re un item aux coordonnÃ©es d'un mur cassÃ©
+	 * @param coordX : CoordonnÃ©es X de l'item
+	 * @param coordY: CoordonnÃ©es Y de l'item
 	 */
 	public void generateItem(int coordX, int coordY) {
 		Random r = new Random();
@@ -497,7 +497,7 @@ public class BombermanGame extends Game {
 
 	/**
 	 * 
-	 * @return Aléatoirement un item
+	 * @return AlÃ©atoirement un item
 	 */
 	public ItemType ramdomItem() {
 		Random r = new Random();
@@ -543,8 +543,8 @@ public class BombermanGame extends Game {
 	}
 
 	/**
-	 * Mets à jour l'état d'un agent
-	 * @param agent : Agent qu'il faut mettre à jour
+	 * Mets Ã  jour l'Ã©tat d'un agent
+	 * @param agent : Agent qu'il faut mettre Ã  jour
 	 */
 	public void updateEtatAgent(Agent agent) {
 		agent.setInvincibleFor(agent.getInvincibleFor() - 1);
@@ -563,7 +563,7 @@ public class BombermanGame extends Game {
 	}
 	/**
 	 * 
-	 * @return Une liste d'agents alliée
+	 * @return Une liste d'agents alliÃ©e
 	 */
 	public ArrayList<Agent> getListAgentBomberman(){
 		return this.pListBombermanAgent;
@@ -571,9 +571,9 @@ public class BombermanGame extends Game {
 	
 	/**
 	 * 
-	 * @param coordX : Coordonnées X d'un agent
-	 * @param coordY : Coordonnées Y d'un agent
-	 * @return Vrai si un agent est est présent aux coordonnées
+	 * @param coordX : CoordonnÃ©es X d'un agent
+	 * @param coordY : CoordonnÃ©es Y d'un agent
+	 * @return Vrai si un agent est est prï¿½sent aux coordonnÃ©es
 	 */
 	public boolean EnemyHere(int coordX, int coordY) {
 		for(MyIterator iterator = new AgentIterator(this.pListBombermanEnemy) ; iterator.hasNext() ;) {
@@ -587,9 +587,9 @@ public class BombermanGame extends Game {
 	
 	/**
 	 * 
-	 * @param coordX : Coordonnées X d'un agent
-	 * @param coordY : Coordonnées Y d'un agent
-	 * @return Vrai si un agent est est présent aux coordonnées
+	 * @param coordX : CoordonnÃ©es X d'un agent
+	 * @param coordY : CoordonnÃ©es Y d'un agent
+	 * @return Vrai si un agent est est prÃ©sent aux coordonnÃ©es
 	 */
 	public boolean AllyHere(int coordX, int coordY) {
 		for(MyIterator iterator = new AgentIterator(this.pListBombermanAgent) ; iterator.hasNext() ;) {
@@ -603,9 +603,9 @@ public class BombermanGame extends Game {
 	
 	/**
 	 * 
-	 * @param coordX : Coordonnées X d'une bombe
-	 * @param coordY : Coordonnées Y d'une bombe
-	 * @return Vrai si une bombe est est présent aux coordonnées
+	 * @param coordX : CoordonnÃ©es X d'une bombe
+	 * @param coordY : CoordonnÃ©es Y d'une bombe
+	 * @return Vrai si une bombe est est prÃ©sent aux coordonnÃ©es
 	 */
 	public boolean BombHere(int coordX, int coordY) {
 		for(InfoBomb bomb : this.pListBomb) {

@@ -3,7 +3,7 @@ package models.agent;
 import models.strategy.Strategy;
 import utils.InfoAgent;
 /**
- * Classe représentant un ennemi volant
+ * Classe reprÃ©sentant un ennemi volant
  * @author tanguy
  *
  */

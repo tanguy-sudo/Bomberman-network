@@ -3,7 +3,7 @@ package models.agent;
 import models.strategy.Strategy;
 import utils.InfoAgent;
 /**
- * Classe représentant un ennemi basique
+ * Classe reprÃ©sentant un ennemi basique
  * @author tanguy
  *
  */

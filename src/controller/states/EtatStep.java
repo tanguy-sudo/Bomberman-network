@@ -3,14 +3,14 @@ import view.*;
 /**
  * 
  * @author tanguy
- * Classe indiquant l'état step
+ * Classe indiquant l'Ã©tat step
  */
 public class EtatStep implements Etat{
 	
 	private ViewCommand pViewCommand;
 	
 	/**
-	 * Rends les boutons restart et start et next intéragissable et le boutons wait enable
+	 * Rends les boutons restart et start et next intÃ©ragissable et le boutons wait enable
 	 * @param viewCommand : Vue command
 	 */
 	public EtatStep(ViewCommand viewCommand) {

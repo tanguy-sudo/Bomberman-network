@@ -2,7 +2,7 @@ package controller.states;
 /**
  * 
  * @author tanguy
- * Interface des différents états de la vue command
+ * Interface des diffÃ©rents Ã©tats de la vue command
  */
 public interface Etat {
 	public void restart();

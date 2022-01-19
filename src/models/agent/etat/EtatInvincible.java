@@ -2,7 +2,7 @@ package models.agent.etat;
 
 import models.agent.Agent;
 /**
- * Classe indiquant l'état invincible
+ * Classe indiquant l'Ã©tat invincible
  * @author tanguy
  *
  */

@@ -6,7 +6,7 @@ import models.agent.etat.EtatWithoutEffects;
 import utils.AgentAction;
 import utils.InfoAgent;
 /**
- * Classe qui représente un agent
+ * Classe qui reprÃ©sente un agent
  * @author tanguy
  *
  */
@@ -21,9 +21,9 @@ public abstract class Agent{
 	private boolean pLiving;
 	
 	/**
-	 * Créer un agent
+	 * CrÃ©er un agent
 	 * @param infoAgent : Informations sur l'agent
-	 * @param strategy: Stratégie sur l'agent
+	 * @param strategy: StratÃ©gie sur l'agent
 	 */
 	public Agent(InfoAgent infoAgent, Strategy strategy) {
 		this.pInfoAgent = infoAgent;
@@ -68,8 +68,8 @@ public abstract class Agent{
 		return this.pInfoAgent;
 	}	
 	/**
-	 * Mets à jour l'attribut etat
-	 * @param etat : état de l'agent
+	 * Mets Ã  jour l'attribut etat
+	 * @param etat : Ã©tat de l'agent
 	 */
 	public void setEtat(EtatAgent etat) {
 		this.pEtat = etat;
@@ -82,7 +82,7 @@ public abstract class Agent{
 		return this.pEtat;
 	}
 	/**
-	 * Mets à jour l'attribut pRange
+	 * Mets Ã  jour l'attribut pRange
 	 * @param range
 	 */
 	public void setRange(int range) {
@@ -103,7 +103,7 @@ public abstract class Agent{
 		return this.pInvincibleFor;
 	}	
 	/**
-	 *  Mets à jour l'attribut pInvincibleFor
+	 *  Mets Ã  jour l'attribut pInvincibleFor
 	 * @param nbTurn
 	 */
 	public void setInvincibleFor(int nbTurn) {
@@ -117,7 +117,7 @@ public abstract class Agent{
 		return this.pSkullFor;
 	}	
 	/**
-	 * Mets à jour l'attribut pSkullFor
+	 * Mets Ã  jour l'attribut pSkullFor
 	 * @param nbTurn
 	 */
 	public void setSkullFor(int nbTurn) {
@@ -131,7 +131,7 @@ public abstract class Agent{
 		return this.pStrategy;
 	}
 	/**
-	 * Mets à jour l'attribut pLiving
+	 * Mets Ã  jour l'attribut pLiving
 	 * @param living
 	 */
 	public void setLiving(boolean living) {

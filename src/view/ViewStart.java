@@ -16,7 +16,7 @@ import javax.swing.SwingConstants;
 import javax.swing.filechooser.FileNameExtensionFilter; 
 import controller.ControllerBombermanGame;
 /**
- * Vue de d�but de partie
+ * Vue de début de partie
  * @author tanguy
  *
  */

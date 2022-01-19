@@ -3,7 +3,7 @@ package models.agent;
 import models.strategy.Strategy;
 import utils.InfoAgent;
 /**
- * Classe représentant un ennemi raijon (il attaque ces propres s'allier
+ * Classe reprÃ©sentant un ennemi raijon (il attaque ces propres s'allier
  * @author tanguy
  *
  */

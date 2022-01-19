@@ -2,7 +2,7 @@ package models.agent.etat;
 
 import models.agent.Agent;
 /**
- * Classe indiquant l'état skull
+ * Classe indiquant l'Ã©tat skull
  * @author tanguy
  *
  */
