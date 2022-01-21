@@ -3,6 +3,10 @@ package models;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Random;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import models.agent.BombermanAgent;
 import models.agent.Agent;
 import models.agent.FabriqueBomberman;
@@ -14,6 +18,13 @@ import utils.InfoItem;
 import utils.ItemType;
 import utils.StateBomb;
 import controller.ControllerBombermanGame;
+
+@JsonIgnoreProperties(ignoreUnknown = true)
+@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY)
+@JsonSubTypes({
+		@JsonSubTypes.Type(value = ControllerBombermanGame.class, name = "ControllerBombermanGame")
+})
+
 /**
  * 
  * @author tanguy
@@ -66,18 +77,7 @@ public class BombermanGame extends Game {
 		for(Agent agent : this.pListBombermanEnemy) {
 			if(agent.getLiving()) countEnemy = countEnemy + 1;
 		}	
-		
-		if(countAgent == 0 && countEnemy == 0) {
-			// �galit�
-			this.pController.lunchViewEnd(0, this.pListBombermanEnemy, this.pListBombermanAgent);
-		}
-		else if(countAgent == 0) {
-			// perdu
-			this.pController.lunchViewEnd(1, this.pListBombermanEnemy, this.pListBombermanAgent);
-		}else if(countEnemy == 0) {
-			// gagn�
-			this.pController.lunchViewEnd(2, this.pListBombermanEnemy, this.pListBombermanAgent);
-		}
+
 	}
 
 	/**
