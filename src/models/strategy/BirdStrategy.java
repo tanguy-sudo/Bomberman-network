@@ -11,16 +11,16 @@ public class BirdStrategy extends Strategy{
 
 	@Override
 	public AgentAction generateAction(Agent agent, BombermanGame game) {
-		for(Agent bombermanAgent : game.getListAgentBomberman()) {
-			if(bombermanAgent.getLiving()) {
-				if(bombermanAgent.getAgent().getX() <= agent.getAgent().getX() + 3 
-						&& bombermanAgent.getAgent().getY() >= agent.getAgent().getY() - 3 
-						&& bombermanAgent.getAgent().getX() >= agent.getAgent().getX() - 3
-						&& bombermanAgent.getAgent().getY() <= agent.getAgent().getY() + 3) {
-					if (agent.getAgent().getX() > bombermanAgent.getAgent().getX()) return AgentAction.MOVE_LEFT;
-					if (agent.getAgent().getX() < bombermanAgent.getAgent().getX()) return AgentAction.MOVE_RIGHT;
-					if (agent.getAgent().getY() > bombermanAgent.getAgent().getY()) return AgentAction.MOVE_UP;
-					if (agent.getAgent().getY() < bombermanAgent.getAgent().getY()) return AgentAction.MOVE_DOWN;
+		for(Agent bombermanAgent : game.getpListBombermanAgent()) {
+			if(bombermanAgent.getpLiving()) {
+				if(bombermanAgent.getpInfoAgent().getX() <= agent.getpInfoAgent().getX() + 3
+						&& bombermanAgent.getpInfoAgent().getY() >= agent.getpInfoAgent().getY() - 3
+						&& bombermanAgent.getpInfoAgent().getX() >= agent.getpInfoAgent().getX() - 3
+						&& bombermanAgent.getpInfoAgent().getY() <= agent.getpInfoAgent().getY() + 3) {
+					if (agent.getpInfoAgent().getX() > bombermanAgent.getpInfoAgent().getX()) return AgentAction.MOVE_LEFT;
+					if (agent.getpInfoAgent().getX() < bombermanAgent.getpInfoAgent().getX()) return AgentAction.MOVE_RIGHT;
+					if (agent.getpInfoAgent().getY() > bombermanAgent.getpInfoAgent().getY()) return AgentAction.MOVE_UP;
+					if (agent.getpInfoAgent().getY() < bombermanAgent.getpInfoAgent().getY()) return AgentAction.MOVE_DOWN;
 					break;					
 				}
 			}

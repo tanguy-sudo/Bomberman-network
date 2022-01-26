@@ -13,7 +13,34 @@ import java.util.ArrayList;
  * Classe qui gère les différentes vues ainsi que les différents modules
  */
 public class ControllerBombermanGame extends AbstractController{
-	
+	public PanelBomberman getpPanelBomberman() {
+		return pPanelBomberman;
+	}
+
+	public void setpPanelBomberman(PanelBomberman pPanelBomberman) {
+		this.pPanelBomberman = pPanelBomberman;
+	}
+
+	public ViewBombermanGame getpViewBombermanGame() {
+		return pViewBombermanGame;
+	}
+
+	public void setpViewBombermanGame(ViewBombermanGame pViewBombermanGame) {
+		this.pViewBombermanGame = pViewBombermanGame;
+	}
+
+	public InputMap getpInputMap() {
+		return pInputMap;
+	}
+
+	public void setpInputMap(InputMap pInputMap) {
+		this.pInputMap = pInputMap;
+	}
+	public Game getpGame() {
+		return this.pGame;
+	}
+
+
 	private PanelBomberman pPanelBomberman;
 	private ViewBombermanGame pViewBombermanGame;
 	private InputMap pInputMap;
@@ -35,28 +62,32 @@ public class ControllerBombermanGame extends AbstractController{
 	 * @param niveau : Niveau de la partie
 	 * @param manual : Indique si la partie se joue manuellement
 	 */
-	public void lunchGame(String pathLayout, String niveau, boolean manual) {
+	public void initGame(String pathLayout, String niveau, boolean manual) {
 		try {
 			this.pMapName = pathLayout;
 			this.pInputMap = new InputMap(pathLayout);
-			this.pPanelBomberman = new PanelBomberman(this.pInputMap.getSizeX(), 
+			/*this.pPanelBomberman = new PanelBomberman(this.pInputMap.getSizeX(),
 													  this.pInputMap.getSizeY(), 
 													  this.pInputMap.get_walls(), 
 													  this.pInputMap.getStart_breakable_walls(), 
 													  this.pInputMap.getStart_agents());
-			this.pViewBombermanGame = new ViewBombermanGame(this.pPanelBomberman, this);
+			this.pViewBombermanGame = new ViewBombermanGame(this.pPanelBomberman, this);*/
 
 			
 			this.pGame = new BombermanGame(10000, this.pInputMap, Integer.parseInt(niveau), this, manual);
+			//this.pGame.addPropertyChangeListener(this.pViewBombermanGame);
 			this.pGame.init();
-			this.pGame.addPropertyChangeListener(this.pViewBombermanGame);
 			this.setSpeed(3);
-			this.play();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.getMessage();
 		}
 	}
+
+	public void lunchGame(){
+		this.play();
+	}
+
 	
 	/**
 	 * Mets à jour l'action que l'utilisateur souhaite effectuer avec le bomberman

@@ -1,10 +1,22 @@
 package models.agent;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import models.strategy.Strategy;
 import models.agent.etat.EtatAgent;
 import models.agent.etat.EtatWithoutEffects;
 import utils.AgentAction;
 import utils.InfoAgent;
+@JsonIgnoreProperties(value = { "pStrategy" })
+@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY)
+@JsonSubTypes({
+		@JsonSubTypes.Type(value = BasicEnemyAgent.class, name = "BasicEnemyAgent"),
+		@JsonSubTypes.Type(value = BirdAgent.class, name = "BirdAgent"),
+		@JsonSubTypes.Type(value = BombermanAgent.class, name = "BombermanAgent"),
+		@JsonSubTypes.Type(value = RajionAgent.class, name = "RajionAgent")
+})
 /**
  * Classe qui représente un agent
  * @author tanguy
@@ -19,7 +31,7 @@ public abstract class Agent{
 	private int pSkullFor;
 	private Strategy pStrategy;
 	private boolean pLiving;
-	
+
 	/**
 	 * Créer un agent
 	 * @param infoAgent : Informations sur l'agent
@@ -34,6 +46,9 @@ public abstract class Agent{
 		this.pStrategy = strategy;
 		this.pLiving = true;
 	}
+
+	@JsonCreator
+	public Agent(){}
 	
 	/**
 	 * Bouge un agent
@@ -64,84 +79,84 @@ public abstract class Agent{
 	 * 
 	 * @return L'attribut pInfoAgent
 	 */
-	public InfoAgent getAgent() {
+	public InfoAgent getpInfoAgent() {
 		return this.pInfoAgent;
 	}	
 	/**
 	 * Mets à jour l'attribut etat
 	 * @param etat : état de l'agent
 	 */
-	public void setEtat(EtatAgent etat) {
+	public void setpEtat(EtatAgent etat) {
 		this.pEtat = etat;
 	}
 	/**
 	 * 
 	 * @return L'attribut pEtat
 	 */
-	public EtatAgent getEtat() {
+	public EtatAgent getpEtat() {
 		return this.pEtat;
 	}
 	/**
 	 * Mets à jour l'attribut pRange
 	 * @param range
 	 */
-	public void setRange(int range) {
+	public void setpRange(int range) {
 		this.pRange = range;
 	}
 	/**
 	 * 
 	 * @return L'attribut pRange
 	 */
-	public int getRange() {
+	public int getpRange() {
 		return this.pRange;
 	}
 	/**
 	 * 
 	 * @return  L'attribut pInvincibleFor
 	 */
-	public int getInvincibleFor() {
+	public int getpInvincibleFor() {
 		return this.pInvincibleFor;
 	}	
 	/**
 	 *  Mets à jour l'attribut pInvincibleFor
 	 * @param nbTurn
 	 */
-	public void setInvincibleFor(int nbTurn) {
+	public void setpInvincibleFor(int nbTurn) {
 		this.pInvincibleFor = nbTurn;
 	}
 	/**
 	 *  L'attribut pSkullFor
 	 * @return
 	 */
-	public int getSkullFor() {
+	public int getpSkullFor() {
 		return this.pSkullFor;
 	}	
 	/**
 	 * Mets à jour l'attribut pSkullFor
 	 * @param nbTurn
 	 */
-	public void setSkullFor(int nbTurn) {
+	public void setpSkullFor(int nbTurn) {
 		this.pSkullFor = nbTurn;
 	}
 	/**
 	 * 
 	 * @return L'attribut pStrategy
 	 */
-	public Strategy getStrategy() {
+	public Strategy getpStrategy() {
 		return this.pStrategy;
 	}
 	/**
 	 * Mets à jour l'attribut pLiving
 	 * @param living
 	 */
-	public void setLiving(boolean living) {
+	public void setpLiving(boolean living) {
 		this.pLiving = living;
 	}
 	/**
 	 *  
 	 * @return L'attribut pSkullFor
 	 */
-	public boolean getLiving() {
+	public boolean getpLiving() {
 		return this.pLiving;
 	}
 }

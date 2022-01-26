@@ -8,7 +8,17 @@ public class InfoBomb {
 	private int range;
 	private int[] range_wall;
 
-		
+	public InfoBomb() {
+	}
+
+	public int[] getRange_wall() {
+		return range_wall;
+	}
+
+	public void setRange_wall(int[] range_wall) {
+		this.range_wall = range_wall;
+	}
+
 	StateBomb stateBomb;
 
 	public InfoBomb(int x, int y, int range, StateBomb stateBomb) {

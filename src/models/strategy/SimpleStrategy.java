@@ -13,7 +13,7 @@ import utils.AgentAction;
 public class SimpleStrategy extends Strategy{
 
 	public AgentAction generateAction(Agent agent, BombermanGame game) {
-		if(agent.getAgent().getType() != 'B') {
+		if(agent.getpInfoAgent().getType() != 'B') {
 			Random r = new Random();
 			switch(r.nextInt(5)) {
 				case 0:

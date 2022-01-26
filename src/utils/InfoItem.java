@@ -7,6 +7,8 @@ public class InfoItem {
 	private ItemType type;
 
 
+	public InfoItem() {
+	}
 
 	public InfoItem(int x, int y, ItemType type) {
 		this.x=x;

@@ -1,6 +1,9 @@
 package models.agent.etat;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import models.agent.Agent;
+@JsonIgnoreProperties(value = { "pAgent" })
 /**
  * Classe indiquant l'état invincible
  * @author tanguy
@@ -12,14 +15,17 @@ public class EtatInvincible implements EtatAgent{
 	
 	public EtatInvincible(Agent agent) {
 		this.pAgent = agent;
-		this.pAgent.setInvincibleFor(5);
-		this.pAgent.setSkullFor(0);
-		this.pAgent.getAgent().setInvincible(true);
+		this.pAgent.setpInvincibleFor(5);
+		this.pAgent.setpSkullFor(0);
+		this.pAgent.getpInfoAgent().setInvincible(true);
 	}
+
+	@JsonCreator
+	public EtatInvincible(){}
 
 	@Override
 	public void invincible() {
-		this.pAgent.setInvincibleFor(5);
+		this.pAgent.setpInvincibleFor(5);
 	}
 
 	@Override
@@ -28,7 +34,7 @@ public class EtatInvincible implements EtatAgent{
 
 	@Override
 	public void withoutEffects() {
-		this.pAgent.setEtat(new EtatWithoutEffects(this.pAgent));	
+		this.pAgent.setpEtat(new EtatWithoutEffects(this.pAgent));
 	}
 
 }

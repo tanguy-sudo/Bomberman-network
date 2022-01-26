@@ -13,7 +13,7 @@ public class BombermanManualStrategy extends Strategy{
 
 	@Override
 	public AgentAction generateAction(Agent agent, BombermanGame game) {
-		return ((BombermanAgent)agent).getAtion(); 
+		return ((BombermanAgent)agent).getpActionUtilisateur();
 	}
 
 }

@@ -1,5 +1,7 @@
 package models.agent;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import models.strategy.Strategy;
 import utils.AgentAction;
 import utils.InfoAgent;
@@ -16,12 +18,15 @@ public class BombermanAgent extends Agent{
 		super(infoAgent, strategy);
 		this.pActionUtilisateur = AgentAction.STOP;
 	}
+
+	@JsonCreator
+	public BombermanAgent(){}
+
 	
 	/**
-	 * 
 	 * @return Une action
 	 */
-	public AgentAction getAtion() {
+	public AgentAction getpActionUtilisateur() {
 		return this.pActionUtilisateur;
 	}
 	
@@ -29,7 +34,7 @@ public class BombermanAgent extends Agent{
 	 * Mets à jour l'action de l'utilisateur
 	 * @param action
 	 */
-	public void setAtion(AgentAction action) {
+	public void setpActionUtilisateur(AgentAction action) {
 		this.pActionUtilisateur = action;
 	}
 }

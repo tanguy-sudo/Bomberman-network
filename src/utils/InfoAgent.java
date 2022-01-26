@@ -1,5 +1,7 @@
 package utils;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+
 public class InfoAgent {
 	
 	private int x;
@@ -22,6 +24,9 @@ public class InfoAgent {
 		this.isSick = isSick;
 	}
 
+	@JsonCreator
+	public InfoAgent(){}
+
 	
 	public int getX() {
 		return x;
@@ -38,8 +43,6 @@ public class InfoAgent {
 	public void setY(int y) {
 		this.y = y;
 	}
-
-
 	
 	public ColorAgent getColor() {
 		return color;

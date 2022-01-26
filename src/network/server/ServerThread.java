@@ -1,5 +1,15 @@
 package network.server;
 
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import com.fasterxml.jackson.annotation.PropertyAccessor;
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.databind.jsontype.BasicPolymorphicTypeValidator;
+import com.fasterxml.jackson.databind.jsontype.PolymorphicTypeValidator;
+import controller.ControllerBombermanGame;
+import models.BombermanGame;
+
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
@@ -26,8 +36,17 @@ public class ServerThread extends Thread {
             //returning the output to the client : true statement is to flush the buffer otherwise
             //we have to do it manually
             output = new PrintWriter(socket.getOutputStream(),true);
-            String value = "{ name: 'tanguy', age:23 }";
-            printToALlClients("");
+
+            ControllerBombermanGame controllerBombermanGame = new ControllerBombermanGame();
+            controllerBombermanGame.initGame("/home/etud/Documents/s8/reseau/Bomberman-network/layouts/niveau3.lay", "1", true);
+
+            ObjectMapper objectMapper = new ObjectMapper();
+            objectMapper.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
+            objectMapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
+
+            String objectString = objectMapper.writeValueAsString(controllerBombermanGame.getpGame());
+
+            output.println(objectString);
 
             //inifite loop for server
             while(true) {
@@ -44,7 +63,7 @@ public class ServerThread extends Thread {
 
 
         } catch (Exception e) {
-            System.out.println("Error occured " +e.getStackTrace());
+            System.out.println("Error occured " +e.getMessage());
         }
     }
 

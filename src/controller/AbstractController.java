@@ -45,6 +45,6 @@ public abstract class AbstractController {
 	 * @param speed : Vitesse du jeu
 	 */
 	public void setSpeed(double speed) {
-		this.pGame.setTime(speed);
+		this.pGame.setpTime(speed);
 	}
 }

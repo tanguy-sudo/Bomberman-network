@@ -28,13 +28,13 @@ public class AgentIterator implements MyIterator{
 		// on regarde si l'agent existe;
         if (position >= this.pListBomberman.size() || this.pListBomberman.get(position) == null) return false;
         // on regarde si l'agent est vivant
-        else if (this.pListBomberman.get(position).getLiving()) return true;
+        else if (this.pListBomberman.get(position).getpLiving()) return true;
         else {
         	// si l'agent n'est pas vivant on regarde l'�lement suivant
         	while(position < this.pListBomberman.size()) {
         		position = position + 1;
         		if(position >= this.pListBomberman.size() || this.pListBomberman.get(position) == null) return false;
-        		else if(this.pListBomberman.get(position).getLiving()) return true; 
+        		else if(this.pListBomberman.get(position).getpLiving()) return true;
         	}
         }
 		return false;

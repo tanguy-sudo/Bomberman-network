@@ -8,6 +8,7 @@ import javax.swing.JFrame;
 
 import controller.ControllerBombermanGame;
 import models.BombermanGame;
+import network.client.ControllerClient;
 import utils.AgentAction;
 /**
  * Vue de la partie
@@ -17,9 +18,9 @@ import utils.AgentAction;
 public class ViewBombermanGame  implements PropertyChangeListener {
 	private PanelBomberman pPanelBomberman;
 	private JFrame window;
-	ControllerBombermanGame controller;
+	ControllerClient controller;
 	
-	public ViewBombermanGame(PanelBomberman panelBomberman, ControllerBombermanGame controller) {
+	public ViewBombermanGame(PanelBomberman panelBomberman, ControllerClient controller) {
 		this.pPanelBomberman = panelBomberman;
 		this.controller = controller;
 		window = new JFrame("Game");
@@ -41,7 +42,7 @@ public class ViewBombermanGame  implements PropertyChangeListener {
 	public void propertyChange(PropertyChangeEvent evt) {
 		if(evt.getPropertyName() == "pGame") {
 			BombermanGame game = (BombermanGame) evt.getNewValue();	
-			this.pPanelBomberman.updateInfoGame(game.getBreakable_walls(), game.getListAgent(), game.getListItems(), game.getListBomb());
+			this.pPanelBomberman.updateInfoGame(game.getpBreakable_walls(), game.fusionListAgent(), game.getpListItems(), game.getpListBomb());
 			this.pPanelBomberman.repaint();
 		}
 	}

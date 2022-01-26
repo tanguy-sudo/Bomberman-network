@@ -1,7 +1,16 @@
 package models;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
+
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import controller.ControllerBombermanGame;
 import utils.AgentAction;
+@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY)
+@JsonSubTypes({
+		@JsonSubTypes.Type(value = BombermanGame.class, name = "BombermanGame")
+})
 /**
  * 
  * @author tanguy
@@ -14,17 +23,20 @@ public abstract class Game implements Runnable{
 	protected boolean pIsRunning;
 	private Thread pThread;
 	private long pTime;
-	protected PropertyChangeSupport pSupport;
+	//protected PropertyChangeSupport pSupport;
 	
 	/**
 	 * Constructeur
-	 * @param maxturn: Nombre maximum de tour
 	 */
 	public Game(int maxturn){
 		this.pMaxturn = maxturn;
 		this.pTime = 1000;
-		this.pSupport = new PropertyChangeSupport(this);
+		//this.pSupport = new PropertyChangeSupport(this);
 	}
+
+	@JsonCreator
+	public Game(){}
+
 	
 	/**
 	 *  Initialise le jeu
@@ -32,7 +44,7 @@ public abstract class Game implements Runnable{
 	public void init() {
 		this.pTurn = 0;
 		int value = 0;
-		pSupport.firePropertyChange("pTurn", this.pTurn, value);
+		//pSupport.firePropertyChange("pTurn", this.pTurn, value);
 		this.pIsRunning = true;		
 		this.initializeGame();
 	}
@@ -43,7 +55,7 @@ public abstract class Game implements Runnable{
 	public void step() {	
 		if(this.gameContinue() && this.pTurn < this.pMaxturn) {
 			int value = this.pTurn + 1;
-			pSupport.firePropertyChange("pTurn", this.pTurn, value);
+			//pSupport.firePropertyChange("pTurn", this.pTurn, value);
 			this.pTurn = value;
 			this.takeTurn();	
 		}
@@ -88,23 +100,23 @@ public abstract class Game implements Runnable{
 	 * Ajoute un observer
 	 * @param pcl
 	 */
-    public void addPropertyChangeListener(PropertyChangeListener pcl) {
+    /*public void addPropertyChangeListener(PropertyChangeListener pcl) {
     	pSupport.addPropertyChangeListener(pcl);
-    }
+    }*/
 
     /**
      * Ajoute un observer
      * @param pcl
      */
-    public void removePropertyChangeListener(PropertyChangeListener pcl) {
+    /*public void removePropertyChangeListener(PropertyChangeListener pcl) {
     	pSupport.removePropertyChangeListener(pcl);
-    }
+    }*/
    
     /**
      * 
      * @return Le nombre de tours effectué
      */
-    public int getTurn() {
+    public int getpTurn() {
     	return this.pTurn;
     }
     
@@ -112,10 +124,42 @@ public abstract class Game implements Runnable{
      *  Modifie la vitesse du jeu
      * @param speed
      */
-    public void setTime(double speed) {
+    public void setpTime(double speed) {
     	this.pTime = (long) (1000 / speed);
     }
-	
+
+	public void setpTurn(int pTurn) {
+		this.pTurn = pTurn;
+	}
+
+	public int getpMaxturn() {
+		return pMaxturn;
+	}
+
+	public void setpMaxturn(int pMaxturn) {
+		this.pMaxturn = pMaxturn;
+	}
+
+	public boolean ispIsRunning() {
+		return pIsRunning;
+	}
+
+	public void setpIsRunning(boolean pIsRunning) {
+		this.pIsRunning = pIsRunning;
+	}
+
+	public Thread getpThread() {
+		return pThread;
+	}
+
+	public void setpThread(Thread pThread) {
+		this.pThread = pThread;
+	}
+
+	public long getpTime() {
+		return pTime;
+	}
+
 	//M�thodes abstraite
 	public abstract void gameOver();
 	public abstract void takeTurn();

@@ -1,4 +1,5 @@
 package models;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import utils.*;
 import java.io.BufferedReader;
 import java.io.FileInputStream;
@@ -8,7 +9,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 
-
+@JsonIgnoreProperties(value = { "buffer" })
 /** 
  * Classe qui permet de charger une carte de Bomberman à partir d'un fichier de layout d'extension .lay
  *  @author tanguy
@@ -18,20 +19,13 @@ import java.util.ArrayList;
 public class InputMap implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	
-
 	private String filename;
 	private int size_x;
 	private int size_y;
-	
 	private boolean walls[][];
 	private boolean start_breakable_walls[][];
-
 	private ArrayList<InfoAgent> start_agents ;
-
-
 	private BufferedReader buffer;
-	
 
 	public InputMap(String filename) throws Exception{
 		
@@ -117,36 +111,60 @@ public class InputMap implements Serializable {
 		}catch (Exception e){
 			System.out.println("Erreur : "+e.getMessage());
 		}
-
-		
 	}
-	
 
-	
-	public int getSizeX() {return(size_x);}
-	public int getSizeY() {return(size_y);}
-	
+	public void setFilename(String filename) {
+		this.filename = filename;
+	}
 
+	public int getSize_x() {
+		return size_x;
+	}
 
-	
-	public String getFilename(){
-		return filename;
+	public void setSize_x(int size_x) {
+		this.size_x = size_x;
+	}
+
+	public int getSize_y() {
+		return size_y;
+	}
+
+	public void setSize_y(int size_y) {
+		this.size_y = size_y;
+	}
+
+	public InputMap() {
+	}
+
+	public ArrayList<InfoAgent> getStart_agents() {
+		return start_agents;
 	}
 
 	public boolean[][] getStart_breakable_walls() {
 		return start_breakable_walls;
 	}
 
-	public boolean[][] get_walls() {
+	public boolean[][] getWalls() {
 		return walls;
 	}
-	
-	
-	public ArrayList<InfoAgent> getStart_agents() {
-		return start_agents;
+
+	public void setWalls(boolean[][] walls) {
+		this.walls = walls;
 	}
 
+	public void setStart_breakable_walls(boolean[][] start_breakable_walls) {
+		this.start_breakable_walls = start_breakable_walls;
+	}
 
+	public void setStart_agents(ArrayList<InfoAgent> start_agents) {
+		this.start_agents = start_agents;
+	}
 
-	
+	public BufferedReader getBuffer() {
+		return buffer;
+	}
+
+	public void setBuffer(BufferedReader buffer) {
+		this.buffer = buffer;
+	}
 }

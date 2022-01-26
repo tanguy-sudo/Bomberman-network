@@ -1,5 +1,6 @@
 package models.agent;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import models.strategy.Strategy;
 import utils.InfoAgent;
 /**
@@ -12,4 +13,7 @@ public class RajionAgent extends Agent{
 	public RajionAgent(InfoAgent infoAgent, Strategy strategy) {
 		super(infoAgent, strategy);
 	}
+
+	@JsonCreator
+	public RajionAgent(){}
 }
