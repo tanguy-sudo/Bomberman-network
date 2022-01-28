@@ -1,12 +1,11 @@
 package models;
-import java.beans.PropertyChangeListener;
-import java.beans.PropertyChangeSupport;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
-import controller.ControllerBombermanGame;
 import utils.AgentAction;
+@JsonIgnoreProperties(value = { "pThread" })
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY)
 @JsonSubTypes({
 		@JsonSubTypes.Type(value = BombermanGame.class, name = "BombermanGame")
@@ -23,15 +22,13 @@ public abstract class Game implements Runnable{
 	protected boolean pIsRunning;
 	private Thread pThread;
 	private long pTime;
-	//protected PropertyChangeSupport pSupport;
 	
 	/**
 	 * Constructeur
 	 */
 	public Game(int maxturn){
 		this.pMaxturn = maxturn;
-		this.pTime = 1000;
-		//this.pSupport = new PropertyChangeSupport(this);
+		this.pTime = 400;
 	}
 
 	@JsonCreator
@@ -44,7 +41,6 @@ public abstract class Game implements Runnable{
 	public void init() {
 		this.pTurn = 0;
 		int value = 0;
-		//pSupport.firePropertyChange("pTurn", this.pTurn, value);
 		this.pIsRunning = true;		
 		this.initializeGame();
 	}
@@ -55,7 +51,6 @@ public abstract class Game implements Runnable{
 	public void step() {	
 		if(this.gameContinue() && this.pTurn < this.pMaxturn) {
 			int value = this.pTurn + 1;
-			//pSupport.firePropertyChange("pTurn", this.pTurn, value);
 			this.pTurn = value;
 			this.takeTurn();	
 		}
@@ -95,22 +90,6 @@ public abstract class Game implements Runnable{
 		this.pThread = new Thread(this);
 		this.pThread.start();
 	}
-	
-	/**
-	 * Ajoute un observer
-	 * @param pcl
-	 */
-    /*public void addPropertyChangeListener(PropertyChangeListener pcl) {
-    	pSupport.addPropertyChangeListener(pcl);
-    }*/
-
-    /**
-     * Ajoute un observer
-     * @param pcl
-     */
-    /*public void removePropertyChangeListener(PropertyChangeListener pcl) {
-    	pSupport.removePropertyChangeListener(pcl);
-    }*/
    
     /**
      * 
@@ -146,14 +125,6 @@ public abstract class Game implements Runnable{
 
 	public void setpIsRunning(boolean pIsRunning) {
 		this.pIsRunning = pIsRunning;
-	}
-
-	public Thread getpThread() {
-		return pThread;
-	}
-
-	public void setpThread(Thread pThread) {
-		this.pThread = pThread;
 	}
 
 	public long getpTime() {

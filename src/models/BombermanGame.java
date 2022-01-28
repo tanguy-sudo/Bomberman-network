@@ -523,7 +523,6 @@ public class BombermanGame extends Game {
 		agent.setpSkullFor(agent.getpSkullFor() - 1);
 		if (agent.getpInvincibleFor() <= 0 && agent.getpSkullFor() <= 0)
 			agent.getpEtat().withoutEffects();
-		//pSupport.firePropertyChange("pGame", null, this);
 	}
 	
 	/**

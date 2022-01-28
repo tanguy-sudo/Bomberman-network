@@ -1,12 +1,7 @@
 package network.client;
 
-import com.fasterxml.jackson.annotation.JsonAutoDetect;
-import com.fasterxml.jackson.annotation.PropertyAccessor;
-import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
 import models.BombermanGame;
-import models.agent.BombermanAgent;
 import view.PanelBomberman;
 import view.ViewBombermanGame;
 
@@ -21,8 +16,10 @@ public class ClientRunnable implements Runnable {
     private Socket socket;
     private BufferedReader input;
     private PrintWriter output;
+    public ControllerClient controllerClient;
 
     public ClientRunnable(Socket s) throws IOException {
+        this.controllerClient = new ControllerClient();
         this.socket = s;
         this.input = new BufferedReader( new InputStreamReader(socket.getInputStream()));
         //this.output = new PrintWriter(socket.getOutputStream(),true);
@@ -30,24 +27,25 @@ public class ClientRunnable implements Runnable {
     @Override
     public void run() {
         
-            try {               
+            try {
+                String response = input.readLine();
+
+                ObjectMapper objectMapper = new ObjectMapper();
+
+                BombermanGame bombermanGame = objectMapper.readValue(response, BombermanGame.class);
+
+                PanelBomberman panelBomberman = new PanelBomberman(
+                        bombermanGame.getpInputMap().getSize_x(),
+                        bombermanGame.getpInputMap().getSize_y(),
+                        bombermanGame.getpInputMap().getWalls(),
+                        bombermanGame.getpBreakable_walls(),
+                        bombermanGame.fusionListAgent()
+                );
+                ViewBombermanGame viewBombermanGame = new ViewBombermanGame(panelBomberman, controllerClient);
                 while(true) {
-                    String response = input.readLine();
-
-                    ObjectMapper objectMapper = new ObjectMapper();
-
-                    BombermanGame bombermanGame = objectMapper.readValue(response, BombermanGame.class);
-
-                    PanelBomberman panelBomberman = new PanelBomberman(
-                            bombermanGame.getpInputMap().getSize_x(),
-                            bombermanGame.getpInputMap().getSize_y(),
-                            bombermanGame.getpInputMap().getWalls(),
-                            bombermanGame.getpBreakable_walls(),
-                            bombermanGame.fusionListAgent()
-                    );
-                    ControllerClient controllerClient = new ControllerClient();
-                    ViewBombermanGame viewBombermanGame = new ViewBombermanGame(panelBomberman, controllerClient);
-                    System.out.println(response);
+                    response = input.readLine();
+                    bombermanGame = objectMapper.readValue(response, BombermanGame.class);
+                    viewBombermanGame.updatePanel(bombermanGame);
                 }
             } catch (IOException e) {
                 e.printStackTrace();
@@ -58,6 +56,10 @@ public class ClientRunnable implements Runnable {
                     e.printStackTrace();
                 }
             }
+    }
+
+    public ControllerClient getControllerClient(){
+        return this.controllerClient;
     }
     
 }

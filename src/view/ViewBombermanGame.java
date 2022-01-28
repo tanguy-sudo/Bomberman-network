@@ -5,8 +5,6 @@ import java.awt.event.KeyListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import javax.swing.JFrame;
-
-import controller.ControllerBombermanGame;
 import models.BombermanGame;
 import network.client.ControllerClient;
 import utils.AgentAction;
@@ -15,7 +13,7 @@ import utils.AgentAction;
  * @author tanguy
  *
  */
-public class ViewBombermanGame  implements PropertyChangeListener {
+public class ViewBombermanGame{
 	private PanelBomberman pPanelBomberman;
 	private JFrame window;
 	ControllerClient controller;
@@ -38,13 +36,9 @@ public class ViewBombermanGame  implements PropertyChangeListener {
 
 	}
 
-	@Override
-	public void propertyChange(PropertyChangeEvent evt) {
-		if(evt.getPropertyName() == "pGame") {
-			BombermanGame game = (BombermanGame) evt.getNewValue();	
-			this.pPanelBomberman.updateInfoGame(game.getpBreakable_walls(), game.fusionListAgent(), game.getpListItems(), game.getpListBomb());
+	public void updatePanel(BombermanGame bombermanGame) {
+			this.pPanelBomberman.updateInfoGame(bombermanGame.getpBreakable_walls(), bombermanGame.fusionListAgent(), bombermanGame.getpListItems(), bombermanGame.getpListBomb());
 			this.pPanelBomberman.repaint();
-		}
 	}
 	
 	/**
@@ -58,38 +52,30 @@ public class ViewBombermanGame  implements PropertyChangeListener {
                     switch (key) {
                 		// gauche
                         case KeyEvent.VK_Q:
-                        	controller.updateActionBomberman(AgentAction.MOVE_LEFT);
+						case KeyEvent.VK_LEFT:
+							controller.setAction(AgentAction.MOVE_LEFT);
                         	break;
-                        case KeyEvent.VK_LEFT:
-                        	controller.updateActionBomberman(AgentAction.MOVE_LEFT);
-                        	break;
-                        // droite
+						// droite
                         case KeyEvent.VK_D:
-                        	controller.updateActionBomberman(AgentAction.MOVE_RIGHT);
+						case KeyEvent.VK_RIGHT:
+							controller.setAction(AgentAction.MOVE_RIGHT);
                         	break;
-                        case KeyEvent.VK_RIGHT:
-                        	controller.updateActionBomberman(AgentAction.MOVE_RIGHT);
-                        	break;
-                        // haut
+						// haut
                         case KeyEvent.VK_Z:
-                        	controller.updateActionBomberman(AgentAction.MOVE_UP);
+						case KeyEvent.VK_UP:
+							controller.setAction(AgentAction.MOVE_UP);
                         	break;
-                        case KeyEvent.VK_UP:
-                        	controller.updateActionBomberman(AgentAction.MOVE_UP);
-                        	break;
-                    	// bas
+						// bas
                         case KeyEvent.VK_S:
-                        	controller.updateActionBomberman(AgentAction.MOVE_DOWN);
+						case KeyEvent.VK_DOWN:
+							controller.setAction(AgentAction.MOVE_DOWN);
                         	break;
-                        case KeyEvent.VK_DOWN:
-                        	controller.updateActionBomberman(AgentAction.MOVE_DOWN);
-                        	break;
-                        // pose une bombe
+						// pose une bombe
                         case KeyEvent.VK_SPACE: 
-                        	controller.updateActionBomberman(AgentAction.PUT_BOMB);
+                        	controller.setAction(AgentAction.PUT_BOMB);
                         	break;
                         default:
-                        	controller.updateActionBomberman(AgentAction.STOP);
+                        	controller.setAction(AgentAction.STOP);
                             break;
                     }
             }
@@ -101,7 +87,7 @@ public class ViewBombermanGame  implements PropertyChangeListener {
             public void keyReleased(KeyEvent keyEvent) {
                 int key = keyEvent.getKeyCode();
                 if (key != KeyEvent.VK_SPACE) {
-                	controller.updateActionBomberman(AgentAction.STOP);
+                	controller.setAction(AgentAction.STOP);
                 }
             }
 

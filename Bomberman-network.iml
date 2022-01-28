@@ -7,35 +7,6 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="module-library" exported="">
-      <library>
-        <CLASSES>
-          <root url="jar://$USER_HOME$/Téléchargements/jackson-annotations-2.13.1.jar!/" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES />
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library" exported="">
-      <library>
-        <CLASSES>
-          <root url="jar://$USER_HOME$/Téléchargements/jackson-core-2.13.1.jar!/" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES />
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library" exported="">
-      <library>
-        <CLASSES>
-          <root url="jar://$USER_HOME$/Téléchargements/jackson-databind-2.13.1.jar!/" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES />
-      </library>
-    </orderEntry>
-    <orderEntry type="library" name="fasterxml.jackson.core" level="project" />
-    <orderEntry type="library" name="fasterxml.jackson.core.annotations" level="project" />
-    <orderEntry type="library" name="fasterxml.jackson.core.annotations1" level="project" />
+    <orderEntry type="library" exported="" name="fasterxml.jackson.core.databind" level="project" />
   </component>
 </module>
