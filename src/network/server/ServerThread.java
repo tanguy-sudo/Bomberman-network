@@ -4,8 +4,8 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import controller.ControllerBombermanGame;
-import models.BombermanGame;
 import utils.AgentAction;
+
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
@@ -46,7 +46,7 @@ public class ServerThread extends Thread {
                 if(outputString != null){
                     action = objectMapper.readValue(outputString, AgentAction.class);
                     this.controllerBombermanGame.getpGame().updateActionUser(action);
-                    System.out.println(action);
+                    //System.out.println(action);
                     objectString = this.objectMapper.writeValueAsString(this.controllerBombermanGame.getpGame());
                     output.println(objectString);
                 }

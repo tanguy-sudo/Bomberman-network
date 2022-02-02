@@ -181,7 +181,6 @@ public class BombermanGame extends Game {
 				//pSupport.firePropertyChange("pGame", null, this);
 			}
 		}
-
 	}
 
 	/**
@@ -355,7 +354,13 @@ public class BombermanGame extends Game {
 	 * @param agent : Agent qui souhaite poser une bombe
 	 */
 	public void putBomb(int coordX, int coordY, Agent agent) {
-		if(agent.getpSkullFor() <= 0) this.pListBomb.add(new InfoBomb(coordX, coordY, agent.getpRange(), StateBomb.Step0));
+
+		if(agent.getpSkullFor() <= 0)
+		{
+			InfoBomb bomb = new InfoBomb(coordX, coordY, agent.getpRange(), StateBomb.Step0);
+			this.pListBomb.add(bomb);
+			//bomb.setStateBomb(nextState(bomb.getStateBomb()));
+		}
 	}
 
 	/**

@@ -82,13 +82,12 @@ public class ViewBombermanGame{
 
             @Override
             public void keyTyped(KeyEvent keyEvent) {
-            }
+				controller.setAction(AgentAction.STOP);
+
+			}
             @Override
             public void keyReleased(KeyEvent keyEvent) {
-                int key = keyEvent.getKeyCode();
-                if (key != KeyEvent.VK_SPACE) {
-                	controller.setAction(AgentAction.STOP);
-                }
+
             }
 
         });

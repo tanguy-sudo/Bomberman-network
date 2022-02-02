@@ -14,7 +14,7 @@ public class MainServer {
 			System.out.println("Serveur lancé...");
 
 			ControllerBombermanGame controllerBombermanGame = new ControllerBombermanGame();
-			controllerBombermanGame.initGame("/home/etud/Documents/s8/reseau/Bomberman-network/layouts/niveau3.lay", "1", true);
+			controllerBombermanGame.initGame("/home/etud/M1_Semestre1/Design Patterns/Bomberman_1.8/layouts/alone.lay", "1", true);
 			controllerBombermanGame.getpGame().launch();
 
 			while(true) {

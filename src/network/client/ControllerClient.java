@@ -1,9 +1,6 @@
 package network.client;
 
-import models.BombermanGame;
 import utils.AgentAction;
-
-import java.awt.event.KeyEvent;
 
 public class ControllerClient {
 

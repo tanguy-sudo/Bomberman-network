@@ -26,6 +26,9 @@ public class MainClient {
                 //if(clientRun.getControllerClient().getOldAction() != agentAction){
                     objectString = objectMapper.writeValueAsString(agentAction);
                     output.println(objectString);
+
+                clientRun.getControllerClient().setAction(AgentAction.STOP);
+
                 //}
                 Thread.sleep(400);
             }
