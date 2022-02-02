@@ -2,8 +2,11 @@ package network.client;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import models.BombermanGame;
+import models.agent.Agent;
 import view.PanelBomberman;
 import view.ViewBombermanGame;
+import view.ViewEnd;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -44,9 +47,42 @@ public class ClientRunnable implements Runnable {
                         bombermanGame.fusionListAgent()
                 );
                 ViewBombermanGame viewBombermanGame = new ViewBombermanGame(panelBomberman, controllerClient);
+
+                ViewEnd viewEnd = null;
                 while(true) {
                     response = input.readLine();
                     bombermanGame = objectMapper.readValue(response, BombermanGame.class);
+                    if(viewEnd == null && (!bombermanGame.gameContinue())){
+                        int countAgent = 0;
+                        int countEnemy = 0;
+
+                        for(Agent agent : bombermanGame.getpListBombermanAgent()) {
+                            if(agent.getpLiving()) countAgent = countAgent + 1;
+                        }
+                        for(Agent agent : bombermanGame.getpListBombermanEnemy()) {
+                            if(agent.getpLiving()) countEnemy = countEnemy + 1;
+                        }
+
+                        int result = 0;
+                        if(countAgent == 0 && countEnemy == 0) {
+                            // égalité
+                            result = 0;
+                        }else if(countAgent == 0) {
+                            // perdu
+                            result = 1;
+                        }else if(countEnemy == 0) {
+                            // gagné
+                            result = 2;
+                        }
+
+                        viewEnd = new ViewEnd(
+                                    result,
+                                    bombermanGame.getpListBombermanEnemy().size() - countEnemy,
+                                    countEnemy,
+                                    bombermanGame.getpListBombermanAgent().size() - countAgent,
+                                    countAgent,
+                                    controllerClient);
+                    }
                     viewBombermanGame.updatePanel(bombermanGame);
                 }
             } catch (IOException e) {

@@ -54,11 +54,10 @@ public class ServerThread extends Thread {
                 if(outputString != null){
                     action = objectMapper.readValue(outputString, AgentAction.class);
                     this.controllerBombermanGame.getpGame().updateActionUser(action);
-                    //System.out.println(action);
                     objectString = this.objectMapper.writeValueAsString(this.controllerBombermanGame.getpGame());
                     output.println(objectString);
                 }
-                Thread.sleep(400);
+                //Thread.sleep(400);
             }
         } catch (Exception e) {
             System.out.println("Error occured " +e.getMessage());

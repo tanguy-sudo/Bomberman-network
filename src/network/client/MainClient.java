@@ -22,12 +22,16 @@ public class MainClient {
             ClientRunnable clientRun = new ClientRunnable(socket);
             new Thread(clientRun).start();
             ObjectMapper objectMapper = new ObjectMapper();
-            String objectString;
+            String objectString = null;
             AgentAction agentAction;
 
             while(true){
-                agentAction = clientRun.getControllerClient().getAction();
-                objectString = objectMapper.writeValueAsString(agentAction);
+                if(clientRun.getControllerClient().isRestart()){
+                    objectString = objectMapper.writeValueAsString(clientRun.getControllerClient().isRestart());
+                }else{
+                    agentAction = clientRun.getControllerClient().getAction();
+                    objectString = objectMapper.writeValueAsString(agentAction);
+                }
                 output.println(objectString);
                 clientRun.getControllerClient().setAction(AgentAction.STOP);
                 Thread.sleep(400);
