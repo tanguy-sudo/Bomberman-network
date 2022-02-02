@@ -1,12 +1,12 @@
 package network.client;
 
-import models.BombermanGame;
 import utils.AgentAction;
 
-import java.awt.event.KeyEvent;
-
+/**
+ * @author tanguy, guillaume
+ * stocke l'action de l'utilisateur
+ */
 public class ControllerClient {
-
     private AgentAction action;
     private AgentAction oldAction;
 

@@ -7,10 +7,8 @@ import models.agent.Agent;
 /**
  * Classe indiquant l'état sans effet
  * @author tanguy
- *
  */
 public class EtatWithoutEffects implements EtatAgent{
-	
 	private Agent pAgent;
 	
 	public EtatWithoutEffects(Agent agent) {
@@ -33,7 +31,6 @@ public class EtatWithoutEffects implements EtatAgent{
 	}
 
 	@Override
-	public void withoutEffects() {	
-	}
+	public void withoutEffects() {}
 
 }

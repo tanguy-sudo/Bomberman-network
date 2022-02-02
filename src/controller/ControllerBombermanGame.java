@@ -1,16 +1,15 @@
 package controller;
+
 import models.BombermanGame;
 import models.Game;
 import models.InputMap;
 import utils.AgentAction;
 
 /**
- * 
  * @author tanguy
  * Classe qui gère les différentes vues ainsi que les différents modules
  */
 public class ControllerBombermanGame extends AbstractController{
-
 	private InputMap pInputMap;
 	
 	/**
@@ -38,10 +37,6 @@ public class ControllerBombermanGame extends AbstractController{
 		}
 	}
 
-	public void lunchGame(){
-		this.play();
-	}
-
 	/**
 	 * Mets à jour l'action que l'utilisateur souhaite effectuer avec le bomberman
 	 * @param action : Action que l'utilisateur a saisie au clavier
@@ -49,10 +44,6 @@ public class ControllerBombermanGame extends AbstractController{
 	public void updateActionBomberman(AgentAction action) {
 		this.pGame.updateActionUser(action);
 	}
-
-	public InputMap getpInputMap() {return pInputMap;}
-
-	public void setpInputMap(InputMap pInputMap) {this.pInputMap = pInputMap;}
 
 	public Game getpGame() {return this.pGame;}
 

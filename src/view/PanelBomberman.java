@@ -1,12 +1,11 @@
 package view;
-import utils.*;
 
+import utils.*;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.awt.image.RescaleOp;
-
 import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
@@ -16,67 +15,42 @@ import javax.swing.JPanel;
 
 /** 
  * Classe qui permet de charger d'afficher le panneau du jeu à partir d'une carte et de listes d'agents avec leurs positions.
- * 
  */
 
 
 public class PanelBomberman extends JPanel{
 
 	private static final long serialVersionUID = 1L;
+
 	protected Color wallColor=Color.GRAY;
 	protected Color brokable_walls_Color=Color.lightGray;
 	protected Color ground_Color= new Color(50,175,50);
-
-	
-
-
-	private int sizeX;
-	private int sizeY;
-
-	private int fen_x;
-	private int fen_y;
-	
-	private double stepx;
-	private double stepy;
-	
-	
-	float[] contraste = { 0, 0, 0, 1.0f };
-	float[] invincible = { 200, 200, 200, 1.0f };
-	float[] skull = { 0.5f, 0.5f, 0.5f, 0.75f };
-
-	
-
 	protected ArrayList<InfoAgent> listInfoAgents;
 	protected ArrayList<InfoItem> listInfoItems;
 	protected ArrayList<InfoBomb> listInfoBombs;
-	
-	
-	private boolean breakable_walls[][];
 
-	
+	private int sizeX;
+	private int sizeY;
+	private int fen_x;
+	private int fen_y;
+	private double stepx;
+	private double stepy;
+	private boolean breakable_walls[][];
 	private boolean[][] walls;
-	
-	
-	
-	int cpt;
+
+	public float[] contraste = { 0, 0, 0, 1.0f };
+	public float[] invincible = { 200, 200, 200, 1.0f };
+	public float[] skull = { 0.5f, 0.5f, 0.5f, 0.75f };
+	public int cpt;
 
 	public PanelBomberman(int sizeX, int sizeY, boolean[][] walls, boolean[][] breakable_walls, ArrayList<InfoAgent> listInfoAgents) {
-
 		this.sizeX = sizeX;
 		this.sizeY = sizeY;
-		
-
-		
-		
 		this.walls = walls;
-		
 		this.listInfoAgents = listInfoAgents;
 		this.breakable_walls = breakable_walls;
-		
 		this.listInfoItems = new ArrayList<InfoItem>();
 		this.listInfoBombs = new ArrayList<InfoBomb>();
-		
-		
 	}
 
 	public void paint(Graphics g){
@@ -478,9 +452,5 @@ public class PanelBomberman extends JPanel{
 	public int getSizeY() {
 		return sizeY;
 	}
-
-
-
-
 
 }

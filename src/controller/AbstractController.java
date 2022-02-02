@@ -1,12 +1,12 @@
 package controller;
-import models.*;
+
+import models.Game;
+
 /**
- * 
  * @author tanguy
  * Classe qui définit les fonctions principales d'un contrôleur
  */
 public abstract class AbstractController {
-	
 	protected Game pGame;
 	protected String pMapName;
 	
@@ -33,7 +33,7 @@ public abstract class AbstractController {
 		this.pGame.launch();
 	}
 	
-	/*
+	/**
 	 *  Interruption du passage automatique des étapes
 	 */
 	public void pause() {

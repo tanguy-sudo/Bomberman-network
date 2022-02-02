@@ -7,7 +7,6 @@ import utils.InfoAgent;
 /**
  * Fabrique un Bomberman et applique une stratégie en fonction du niveau de si l'utilisateur joue manuellement
  * @author tanguy
- *
  */
 public class FabriqueBomberman implements AbstractFactory{
 

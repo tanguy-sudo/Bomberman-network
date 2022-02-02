@@ -3,7 +3,6 @@ package models;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Random;
-
 import com.fasterxml.jackson.annotation.*;
 import models.agent.BombermanAgent;
 import models.agent.Agent;
@@ -44,6 +43,9 @@ public class BombermanGame extends Game {
 	@JsonProperty("pManual")
 	private boolean pManual;
 
+	@JsonCreator
+	public BombermanGame(){}
+
 	/**
 	 * Initialise les différents attributs
 	 * @param inputMap : La map qui contient les données
@@ -63,9 +65,6 @@ public class BombermanGame extends Game {
 		this.pController = controller;
 		this.pManual = manual;
 	}
-
-	@JsonCreator
-	public BombermanGame(){}
 
 	/**
 	 * Renvoie les informations de fin de partie
@@ -95,8 +94,6 @@ public class BombermanGame extends Game {
 			this.pListBombermanEnemy.clear();
 			this.pListBomb.clear();
 			this.pListItems.clear();
-			// Préviens l'observer des changements d'informations
-			//pSupport.firePropertyChange("pGame", null, this);
 		}catch(Exception e) {
 			
 		}
@@ -115,7 +112,6 @@ public class BombermanGame extends Game {
 				break;
 			}
 			bomb.setStateBomb(nextState(bomb.getStateBomb()));
-			//pSupport.firePropertyChange("pGame", null, this);
 			if (bomb.getStateBomb() == StateBomb.Boom) {
 				destroyWall(bomb.getX(), bomb.getY(), bomb.getRange());
 				for(MyIterator it = new AgentIterator(this.pListBombermanEnemy) ; it.hasNext() ;) {
@@ -126,12 +122,10 @@ public class BombermanGame extends Game {
 						if (posXagent == bomb.getX()) {
 							if ((posYagent == (bomb.getY() + i)) || (posYagent == (bomb.getY() - i))) {
 								agent.setpLiving(false);
-								//pSupport.firePropertyChange("pGame", null, this);
 							}
 						} else if (posYagent == bomb.getY()) {
 							if ((posXagent == (bomb.getX() + i)) || (posXagent == (bomb.getX() - i))) {
 								agent.setpLiving(false);
-								//pSupport.firePropertyChange("pGame", null, this);
 							}
 						}
 					}
@@ -158,7 +152,6 @@ public class BombermanGame extends Game {
 						next = false;
 					}
 				}
-				//pSupport.firePropertyChange("pGame", null, this);
 			}
 		}
 		
@@ -175,10 +168,8 @@ public class BombermanGame extends Game {
 						moveAgent(agent, action);
 						AgentWalksOnItem(agent);
 						next = false;
-					}		
-
+					}
 				}
-				//pSupport.firePropertyChange("pGame", null, this);
 			}
 		}
 
@@ -202,7 +193,6 @@ public class BombermanGame extends Game {
 				this.pListBombermanEnemy.add(fabriqueEnemy.createAgent(infoAgent, this.pNiveau, this.pManual));
 			}
 		}
-		//pSupport.firePropertyChange("pGame", null, this);
 	}
 
 	/**
@@ -234,7 +224,6 @@ public class BombermanGame extends Game {
 	}
 
 	/**
-	 * 
 	 * @return La liste des agents alliées comme ennemies
 	 */
 	public ArrayList<InfoAgent> fusionListAgent() {
@@ -468,7 +457,6 @@ public class BombermanGame extends Game {
 	}
 
 	/**
-	 * 
 	 * @return Aléatoirement un item
 	 */
 	public ItemType ramdomItem() {
@@ -526,7 +514,6 @@ public class BombermanGame extends Game {
 	}
 	
 	/**
-	 * 
 	 * @param coordX : Coordonnées X d'un agent
 	 * @param coordY : Coordonnées Y d'un agent
 	 * @return Vrai si un agent est est pr�sent aux coordonnées
@@ -542,7 +529,6 @@ public class BombermanGame extends Game {
 	}	
 	
 	/**
-	 * 
 	 * @param coordX : Coordonnées X d'un agent
 	 * @param coordY : Coordonnées Y d'un agent
 	 * @return Vrai si un agent est est présent aux coordonnées
@@ -558,7 +544,6 @@ public class BombermanGame extends Game {
 	}
 	
 	/**
-	 * 
 	 * @param coordX : Coordonnées X d'une bombe
 	 * @param coordY : Coordonnées Y d'une bombe
 	 * @return Vrai si une bombe est est présent aux coordonnées
@@ -572,84 +557,58 @@ public class BombermanGame extends Game {
 		return false;
 	}
 
-	/**
-	 * @return La inputmap utilisée
-	 */
+
 	public InputMap getpInputMap() {
 		return this.pInputMap;
 	}
+	public void setpInputMap(InputMap pInputMap) {this.pInputMap = pInputMap;}
 
-	/**
-	 * @return Les murs cassables
-	 */
 	public boolean[][] getpBreakable_walls() {
 		return this.pBreakable_walls;
 	}
-
-	/**
-	 * @return Une liste d'agents ennemie
-	 */
-	public ArrayList<Agent> getpListBombermanEnemy(){
-		return this.pListBombermanEnemy;
-	}
-
-	/**
-	 * @return Une liste d'agents alliée
-	 */
-	public ArrayList<Agent> getpListBombermanAgent(){
-		return this.pListBombermanAgent;
-	}
-
-	/**
-	 * @return La liste des bombes
-	 */
-	public ArrayList<InfoBomb> getpListBomb() {
-		return this.pListBomb;
-	}
-
-	/**
-	 * @return la liste des items sur la map
-	 */
-	public ArrayList<InfoItem> getpListItems() {
-		return this.pListItems;
-	}
-
-	public ControllerBombermanGame getpController() {return pController;}
-
-	public int getpNiveau() {return pNiveau;}
-
-	public boolean ispManual() {return pManual;}
-
-	public void setpInputMap(InputMap pInputMap) {this.pInputMap = pInputMap;}
-
 	public void setpBreakable_walls(boolean[][] pBreakable_walls) {
 		this.pBreakable_walls = pBreakable_walls;
 	}
 
-	public void setpListBombermanAgent(ArrayList<Agent> pListBombermanAgent) {
-		this.pListBombermanAgent = pListBombermanAgent;
+	public ArrayList<Agent> getpListBombermanEnemy(){
+		return this.pListBombermanEnemy;
 	}
-
 	public void setpListBombermanEnemy(ArrayList<Agent> pListBombermanEnemy) {
 		this.pListBombermanEnemy = pListBombermanEnemy;
 	}
 
+	public ArrayList<Agent> getpListBombermanAgent(){
+		return this.pListBombermanAgent;
+	}
+	public void setpListBombermanAgent(ArrayList<Agent> pListBombermanAgent) {
+		this.pListBombermanAgent = pListBombermanAgent;
+	}
+
+	public ArrayList<InfoBomb> getpListBomb() {
+		return this.pListBomb;
+	}
 	public void setpListBomb(ArrayList<InfoBomb> pListBomb) {
 		this.pListBomb = pListBomb;
 	}
 
+	public ArrayList<InfoItem> getpListItems() {
+		return this.pListItems;
+	}
 	public void setpListItems(ArrayList<InfoItem> pListItems) {
 		this.pListItems = pListItems;
 	}
 
+	public ControllerBombermanGame getpController() {return pController;}
 	public void setpController(ControllerBombermanGame pController) {
 		this.pController = pController;
 	}
 
+	public int getpNiveau() {return pNiveau;}
 	public void setpNiveau(int pNiveau) {
 		this.pNiveau = pNiveau;
 	}
 
+	public boolean ispManual() {return pManual;}
 	public void setpManual(boolean pManual) {
 		this.pManual = pManual;
 	}

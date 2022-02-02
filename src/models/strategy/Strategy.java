@@ -18,12 +18,9 @@ import utils.AgentAction;
 /**
  * Interface des stratégies
  * @author tanguy
- *
  */
 
 public abstract class Strategy {
-
-	
 	public abstract AgentAction generateAction(Agent agent, BombermanGame game);
 	
 	public boolean isBlockOff(Agent agent, BombermanGame game) {

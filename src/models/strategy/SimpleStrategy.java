@@ -1,14 +1,12 @@
 package models.strategy;
 
 import java.util.Random;
-
 import models.BombermanGame;
 import models.agent.Agent;
 import utils.AgentAction;
 /**
  * Stratégie aléatoire
  * @author tanguy
- *
  */
 public class SimpleStrategy extends Strategy{
 

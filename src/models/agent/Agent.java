@@ -23,14 +23,17 @@ import utils.InfoAgent;
  *
  */
 public abstract class Agent{
-	
 	protected InfoAgent pInfoAgent;
+
 	private EtatAgent pEtat;
 	private int pRange;
 	private int pInvincibleFor;
 	private int pSkullFor;
 	private Strategy pStrategy;
 	private boolean pLiving;
+
+	@JsonCreator
+	public Agent(){}
 
 	/**
 	 * Créer un agent
@@ -47,9 +50,6 @@ public abstract class Agent{
 		this.pLiving = true;
 	}
 
-	@JsonCreator
-	public Agent(){}
-	
 	/**
 	 * Bouge un agent
 	 * @param action : Action que l'agent fait

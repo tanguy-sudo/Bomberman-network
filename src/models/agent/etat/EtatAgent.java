@@ -12,7 +12,6 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
 /**
  * interface qui indique l'état d'un agent
  * @author tanguy
- *
  */
 public interface EtatAgent {
 	public void invincible();

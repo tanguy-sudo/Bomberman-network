@@ -7,10 +7,8 @@ import models.agent.Agent;
 /**
  * Classe indiquant l'état invincible
  * @author tanguy
- *
  */
 public class EtatInvincible implements EtatAgent{
-	
 	private Agent pAgent;
 	
 	public EtatInvincible(Agent agent) {
@@ -29,8 +27,7 @@ public class EtatInvincible implements EtatAgent{
 	}
 
 	@Override
-	public void skull() {
-	}
+	public void skull() {}
 
 	@Override
 	public void withoutEffects() {

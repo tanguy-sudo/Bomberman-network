@@ -4,7 +4,6 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import controller.ControllerBombermanGame;
-import models.BombermanGame;
 import utils.AgentAction;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -12,7 +11,11 @@ import java.io.PrintWriter;
 import java.net.Socket;
 import java.util.ArrayList;
 
-
+/**
+ * @author tanguy, guillaume
+ * Chaque client a un thread
+ * ServerThread gère l'envoie d'un objet JSON sous la forme d'une string a son client;
+ */
 public class ServerThread extends Thread {
     private Socket socket;
     private ArrayList<ServerThread> threadList;
@@ -29,6 +32,10 @@ public class ServerThread extends Thread {
         objectMapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
     }
 
+    /**
+     * crée une entrée et une sortie sur un socket, pour lire et écrire dessus
+     * li l'action que le client envoie et lui renvoie le jeu modifié
+     */
     @Override
     public void run() {
         try {
@@ -57,7 +64,11 @@ public class ServerThread extends Thread {
         }
     }
 
-    private void printToALlClients(String outputString) {
+    /**
+     * Envoie a tous les clients le jeu, qui a été mis à jour par le serveur
+     * @param outputString : Objet JSON sous la forme d'une string
+     */
+    private void sendToALlClients(String outputString) {
         for( ServerThread sT: threadList) {
             sT.output.println(outputString);
         }
