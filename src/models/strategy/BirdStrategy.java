@@ -5,7 +5,6 @@ import utils.AgentAction;
 /**
  * Le Bird fonce vers l'ennemie quand il rentre dans sa zone 
  * @author tanguy
- *
  */
 public class BirdStrategy extends Strategy{
 

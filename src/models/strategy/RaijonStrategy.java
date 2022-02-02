@@ -5,7 +5,6 @@ import models.BombermanGame;
 import models.agent.Agent;
 import utils.AgentAction;
 /**
- * 
  * @author tanguy
  * S'il est invincible fonce vers le bomberman
  * Il peut manger ses alliées

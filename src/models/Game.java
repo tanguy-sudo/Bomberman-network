@@ -22,7 +22,10 @@ public abstract class Game implements Runnable{
 	protected boolean pIsRunning;
 	private Thread pThread;
 	private long pTime;
-	
+
+	@JsonCreator
+	public Game(){}
+
 	/**
 	 * Constructeur
 	 */
@@ -30,10 +33,6 @@ public abstract class Game implements Runnable{
 		this.pMaxturn = maxturn;
 		this.pTime = 400;
 	}
-
-	@JsonCreator
-	public Game(){}
-
 	
 	/**
 	 *  Initialise le jeu
@@ -92,29 +91,25 @@ public abstract class Game implements Runnable{
 	}
    
     /**
-     * 
      * @return Le nombre de tours effectué
      */
     public int getpTurn() {
     	return this.pTurn;
     }
-    
-    /**
-     *  Modifie la vitesse du jeu
-     * @param speed
-     */
-    public void setpTime(double speed) {
-    	this.pTime = (long) (1000 / speed);
-    }
-
 	public void setpTurn(int pTurn) {
 		this.pTurn = pTurn;
 	}
 
+	public long getpTime() {
+		return pTime;
+	}
+    public void setpTime(double speed) {
+    	this.pTime = (long) (1000 / speed);
+    }
+
 	public int getpMaxturn() {
 		return pMaxturn;
 	}
-
 	public void setpMaxturn(int pMaxturn) {
 		this.pMaxturn = pMaxturn;
 	}
@@ -122,13 +117,8 @@ public abstract class Game implements Runnable{
 	public boolean ispIsRunning() {
 		return pIsRunning;
 	}
-
 	public void setpIsRunning(boolean pIsRunning) {
 		this.pIsRunning = pIsRunning;
-	}
-
-	public long getpTime() {
-		return pTime;
 	}
 
 	//M�thodes abstraite

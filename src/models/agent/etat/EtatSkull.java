@@ -7,10 +7,8 @@ import models.agent.Agent;
 /**
  * Classe indiquant l'état skull
  * @author tanguy
- *
  */
 public class EtatSkull implements EtatAgent{
-	
 	private Agent pAgent;
 	
 	public EtatSkull(Agent agent) {

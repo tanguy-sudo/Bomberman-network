@@ -2,12 +2,16 @@ package network.client;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import utils.AgentAction;
-
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
 
+/**
+ * @author tanguy, guillaume
+ * Crée un client qui va se connecter au serverSocket qui est sur le port 5000
+ * envoie l'action que l'utilisateur a effectuée
+ */
 public class MainClient {
 
     public static void main(String[] args) {
@@ -23,13 +27,9 @@ public class MainClient {
 
             while(true){
                 agentAction = clientRun.getControllerClient().getAction();
-                //if(clientRun.getControllerClient().getOldAction() != agentAction){
-                    objectString = objectMapper.writeValueAsString(agentAction);
-                    output.println(objectString);
-
+                objectString = objectMapper.writeValueAsString(agentAction);
+                output.println(objectString);
                 clientRun.getControllerClient().setAction(AgentAction.STOP);
-
-                //}
                 Thread.sleep(400);
             }
 

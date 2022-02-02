@@ -9,7 +9,6 @@ import utils.AgentAction;
  * Si le bomberman est invincible il fonce vers l'ennemie
  * Si le Bomberman n'a personne dans un rayon de 5 il fonc vers le premier ennemi de la liste
  * @author tanguy
- *
  */
 public class BombermanStrategy extends Strategy{
 

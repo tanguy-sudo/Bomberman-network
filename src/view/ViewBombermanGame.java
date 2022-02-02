@@ -2,8 +2,6 @@ package view;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
 import javax.swing.JFrame;
 import models.BombermanGame;
 import network.client.ControllerClient;
@@ -36,6 +34,10 @@ public class ViewBombermanGame{
 
 	}
 
+	/**
+	 * Mets à jour la panel
+	 * @param bombermanGame : le jeu
+	 */
 	public void updatePanel(BombermanGame bombermanGame) {
 			this.pPanelBomberman.updateInfoGame(bombermanGame.getpBreakable_walls(), bombermanGame.fusionListAgent(), bombermanGame.getpListItems(), bombermanGame.getpListBomb());
 			this.pPanelBomberman.repaint();
@@ -82,13 +84,9 @@ public class ViewBombermanGame{
 
             @Override
             public void keyTyped(KeyEvent keyEvent) {
-				controller.setAction(AgentAction.STOP);
-
 			}
             @Override
-            public void keyReleased(KeyEvent keyEvent) {
-
-            }
+            public void keyReleased(KeyEvent keyEvent) {}
 
         });
     }

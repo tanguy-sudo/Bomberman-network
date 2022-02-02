@@ -8,7 +8,6 @@ import utils.InfoAgent;
 /**
  * Fabrique un ennemi et applique une stratégie en fonction du niveau
  * @author tanguy
- *
  */
 public class FabriqueEnemy implements AbstractFactory{
 

@@ -5,7 +5,6 @@ import utils.AgentAction;
 /**
  * le BasicEnemy fonce vers la cible en permanence
  * @author tanguy
- *
  */
 public class BasicEnemyStrategy extends Strategy{
 
