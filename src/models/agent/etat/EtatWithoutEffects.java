@@ -1,9 +1,6 @@
 package models.agent.etat;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import models.agent.Agent;
-@JsonIgnoreProperties(value = { "pAgent" })
 /**
  * Classe indiquant l'état sans effet
  * @author tanguy
@@ -16,9 +13,6 @@ public class EtatWithoutEffects implements EtatAgent{
 		this.pAgent.getpInfoAgent().setInvincible(false);
 		this.pAgent.getpInfoAgent().setSick(false);
 	}
-
-	@JsonCreator
-	public EtatWithoutEffects(){}
 
 	@Override
 	public void invincible() {

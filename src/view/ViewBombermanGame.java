@@ -2,10 +2,14 @@ package view;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.ArrayList;
 import javax.swing.JFrame;
-import models.BombermanGame;
 import network.client.ControllerClient;
 import utils.AgentAction;
+import utils.InfoAgent;
+import utils.InfoBomb;
+import utils.InfoItem;
+
 /**
  * Vue de la partie
  * @author tanguy
@@ -36,10 +40,9 @@ public class ViewBombermanGame{
 
 	/**
 	 * Mets à jour la panel
-	 * @param bombermanGame : le jeu
 	 */
-	public void updatePanel(BombermanGame bombermanGame) {
-			this.pPanelBomberman.updateInfoGame(bombermanGame.getpBreakable_walls(), bombermanGame.fusionListAgent(), bombermanGame.getpListItems(), bombermanGame.getpListBomb());
+	public void updatePanel(boolean[][] breakable_walls, ArrayList<InfoAgent> listInfoAgents , ArrayList<InfoItem> listInfoItems, ArrayList<InfoBomb> listInfoBombs) {
+			this.pPanelBomberman.updateInfoGame(breakable_walls, listInfoAgents, listInfoItems, listInfoBombs);
 			this.pPanelBomberman.repaint();
 	}
 	

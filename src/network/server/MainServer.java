@@ -24,7 +24,7 @@ public class MainServer {
 
 			while(true) {
 				Socket socket = serversocket.accept();
-				ServerThread serverThread = new ServerThread(socket, threadList, controllerBombermanGame);
+				ServerThread serverThread = new ServerThread(socket, threadList, controllerBombermanGame.getpGame());
 				threadList.add(serverThread);
 				serverThread.start();
 			}

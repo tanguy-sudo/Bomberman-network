@@ -1,6 +1,6 @@
 package network.client;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+import org.json.JSONObject;
 import utils.AgentAction;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -21,18 +21,18 @@ public class MainClient {
 
             ClientRunnable clientRun = new ClientRunnable(socket);
             new Thread(clientRun).start();
-            ObjectMapper objectMapper = new ObjectMapper();
-            String objectString = null;
+            JSONObject obj = new JSONObject();
             AgentAction agentAction;
 
             while(true){
+                obj.clear();
                 if(clientRun.getControllerClient().isRestart()){
-                    objectString = objectMapper.writeValueAsString(clientRun.getControllerClient().isRestart());
+                    obj.put("restart", clientRun.getControllerClient().isRestart());
                 }else{
                     agentAction = clientRun.getControllerClient().getAction();
-                    objectString = objectMapper.writeValueAsString(agentAction);
+                    obj.put("action", agentAction);
                 }
-                output.println(objectString);
+                output.println(obj);
                 clientRun.getControllerClient().setAction(AgentAction.STOP);
                 Thread.sleep(400);
             }

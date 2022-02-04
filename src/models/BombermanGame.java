@@ -3,7 +3,6 @@ package models;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Random;
-import com.fasterxml.jackson.annotation.*;
 import models.agent.BombermanAgent;
 import models.agent.Agent;
 import models.agent.FabriqueBomberman;
@@ -16,35 +15,22 @@ import utils.ItemType;
 import utils.StateBomb;
 import controller.ControllerBombermanGame;
 
-@JsonIgnoreProperties(value = { "pController" })
-
 /**
  * 
  * @author tanguy
  * Classe qui stocke les informations sur une partie et fait jouer les différents agents
  */
 public class BombermanGame extends Game {
-	@JsonProperty("pInputMap")
 	private InputMap pInputMap;
-	@JsonProperty("pBreakable_walls")
 	private boolean pBreakable_walls[][];
-	@JsonProperty("pListBombermanAgent")
 	private ArrayList<Agent> pListBombermanAgent;
-	@JsonProperty("pListBombermanEnemy")
 	private ArrayList<Agent> pListBombermanEnemy;
-	@JsonProperty("pListBomb")
 	private ArrayList<InfoBomb> pListBomb;
-	@JsonProperty("pListItems")
 	private ArrayList<InfoItem> pListItems;
-	@JsonProperty("pController")
 	private ControllerBombermanGame pController;
-	@JsonProperty("pNiveau")
 	private int pNiveau;
-	@JsonProperty("pManual")
 	private boolean pManual;
 
-	@JsonCreator
-	public BombermanGame(){}
 
 	/**
 	 * Initialise les différents attributs
@@ -217,8 +203,8 @@ public class BombermanGame extends Game {
 	 * Mets à jour l'action de l'utilisateur dans la classe bombermanAgent
 	 */
 	@Override
-	public void updateActionUser(AgentAction action) {
-		Agent agent = this.pListBombermanAgent.get(0);
+	public void updateActionUser(AgentAction action, int playerNumber) {
+		Agent agent = this.pListBombermanAgent.get(playerNumber);
 		((BombermanAgent)agent).setpActionUtilisateur(action);
 	}
 

@@ -1,6 +1,5 @@
 package models;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import utils.*;
 import java.io.BufferedReader;
 import java.io.FileInputStream;
@@ -10,7 +9,6 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 
-@JsonIgnoreProperties(value = { "buffer" })
 /** 
  * Classe qui permet de charger une carte de Bomberman à partir d'un fichier de layout d'extension .lay
  *  @author tanguy
@@ -27,8 +25,6 @@ public class InputMap implements Serializable {
 	private ArrayList<InfoAgent> start_agents ;
 	private BufferedReader buffer;
 
-	@JsonCreator
-	public InputMap() {}
 
 	public InputMap(String filename) throws Exception{
 		this.filename = filename;

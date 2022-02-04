@@ -1,6 +1,5 @@
 package models.agent;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
 import models.strategy.Strategy;
 import utils.AgentAction;
 import utils.InfoAgent;
@@ -10,9 +9,6 @@ import utils.InfoAgent;
  */
 public class BombermanAgent extends Agent{
 	private AgentAction pActionUtilisateur;
-
-	@JsonCreator
-	public BombermanAgent(){}
 
 	public BombermanAgent(InfoAgent infoAgent, Strategy strategy) {
 		super(infoAgent, strategy);

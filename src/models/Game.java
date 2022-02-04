@@ -1,15 +1,6 @@
 package models;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonSubTypes;
-import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import utils.AgentAction;
-@JsonIgnoreProperties(value = { "pThread" })
-@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY)
-@JsonSubTypes({
-		@JsonSubTypes.Type(value = BombermanGame.class, name = "BombermanGame")
-})
 /**
  * 
  * @author tanguy
@@ -22,9 +13,6 @@ public abstract class Game implements Runnable{
 	protected boolean pIsRunning;
 	private Thread pThread;
 	private long pTime;
-
-	@JsonCreator
-	public Game(){}
 
 	/**
 	 * Constructeur
@@ -127,5 +115,5 @@ public abstract class Game implements Runnable{
 	public abstract void initializeGame();
 	public abstract boolean gameContinue();
 	public abstract void restart(String mapName);
-	public abstract void updateActionUser(AgentAction action);
+	public abstract void updateActionUser(AgentAction action, int playerNumber);
 }

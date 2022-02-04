@@ -1,22 +1,10 @@
 package models.agent;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonSubTypes;
-import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import models.strategy.Strategy;
 import models.agent.etat.EtatAgent;
 import models.agent.etat.EtatWithoutEffects;
 import utils.AgentAction;
 import utils.InfoAgent;
-@JsonIgnoreProperties(value = { "pStrategy" })
-@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY)
-@JsonSubTypes({
-		@JsonSubTypes.Type(value = BasicEnemyAgent.class, name = "BasicEnemyAgent"),
-		@JsonSubTypes.Type(value = BirdAgent.class, name = "BirdAgent"),
-		@JsonSubTypes.Type(value = BombermanAgent.class, name = "BombermanAgent"),
-		@JsonSubTypes.Type(value = RajionAgent.class, name = "RajionAgent")
-})
 /**
  * Classe qui représente un agent
  * @author tanguy
@@ -31,9 +19,6 @@ public abstract class Agent{
 	private int pSkullFor;
 	private Strategy pStrategy;
 	private boolean pLiving;
-
-	@JsonCreator
-	public Agent(){}
 
 	/**
 	 * Créer un agent
@@ -145,6 +130,10 @@ public abstract class Agent{
 	public Strategy getpStrategy() {
 		return this.pStrategy;
 	}
+	public void setpStrategy(Strategy pStrategy) {
+		this.pStrategy = pStrategy;
+	}
+
 	/**
 	 * Mets à jour l'attribut pLiving
 	 * @param living
@@ -152,6 +141,7 @@ public abstract class Agent{
 	public void setpLiving(boolean living) {
 		this.pLiving = living;
 	}
+
 	/**
 	 *  
 	 * @return L'attribut pSkullFor

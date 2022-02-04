@@ -1,11 +1,11 @@
 package network.server;
 
-import com.fasterxml.jackson.databind.DeserializationFeature;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
-import controller.ControllerBombermanGame;
+import models.BombermanGame;
+import models.Game;
+import models.strategy.BombermanManualStrategy;
+import models.strategy.BombermanStrategy;
+import org.json.JSONObject;
 import utils.AgentAction;
-
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
@@ -18,19 +18,20 @@ import java.util.ArrayList;
  * ServerThread gère l'envoie d'un objet JSON sous la forme d'une string a son client;
  */
 public class ServerThread extends Thread {
+    private static int compteur = 0;
     private Socket socket;
     private ArrayList<ServerThread> threadList;
     private PrintWriter output;
-    private ControllerBombermanGame controllerBombermanGame;
-    private ObjectMapper objectMapper;
+    private BombermanGame bombermanGame;
+    private int playerNumber;
 
-    public ServerThread(Socket socket, ArrayList<ServerThread> threads, ControllerBombermanGame pcontrollerBombermanGame) {
+    public ServerThread(Socket socket, ArrayList<ServerThread> threads, Game bombermanGame) {
         this.socket = socket;
         this.threadList = threads;
-        this.controllerBombermanGame = pcontrollerBombermanGame;
-        this.objectMapper = new ObjectMapper();
-        objectMapper.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
-        objectMapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
+        this.bombermanGame = (BombermanGame) bombermanGame;
+        this.playerNumber = ServerThread.compteur;
+        this.bombermanGame.getpListBombermanAgent().get(this.playerNumber).setpStrategy(new BombermanManualStrategy());
+        ServerThread.compteur++;
     }
 
     /**
@@ -43,19 +44,34 @@ public class ServerThread extends Thread {
             BufferedReader input = new BufferedReader( new InputStreamReader(socket.getInputStream()));
             output = new PrintWriter(socket.getOutputStream(),true);
 
-            String objectString = objectMapper.writeValueAsString(controllerBombermanGame.getpGame());
-            output.println(objectString);
+            JSONObject obj = new JSONObject();
+            obj.put("size_x", bombermanGame.getpInputMap().getSize_x());
+            obj.put("size_y", bombermanGame.getpInputMap().getSize_y());
+            obj.put("listInfoAgents", bombermanGame.fusionListAgent());
+            obj.put("walls", bombermanGame.getpInputMap().getWalls());
+            obj.put("breakablewalls", bombermanGame.getpBreakable_walls());
+            output.println(obj);
 
             String outputString;
             AgentAction action;
             while(true) {
 
                 outputString = input.readLine();
-                if(outputString != null){
-                    action = objectMapper.readValue(outputString, AgentAction.class);
-                    this.controllerBombermanGame.getpGame().updateActionUser(action);
-                    objectString = this.objectMapper.writeValueAsString(this.controllerBombermanGame.getpGame());
-                    output.println(objectString);
+                JSONObject j = new JSONObject(outputString);
+
+                if(j != null){
+                    obj.clear();
+
+                    action = (AgentAction) j.getEnum(AgentAction.class, "action");
+                    this.bombermanGame.updateActionUser(action, this.playerNumber);
+
+                    obj.put("listInfoAgents", bombermanGame.fusionListAgent());
+                    obj.put("breakablewalls", bombermanGame.getpBreakable_walls());
+                    obj.put("listItems", bombermanGame.getpListItems());
+                    obj.put("listBombs", bombermanGame.getpListBomb());
+                    obj.put("gameContinue", bombermanGame.gameContinue());
+
+                    output.println(obj);
                 }
                 //Thread.sleep(400);
             }

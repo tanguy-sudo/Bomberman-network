@@ -1,17 +1,19 @@
 package network.client;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import models.BombermanGame;
-import models.agent.Agent;
+import org.json.JSONArray;
+import org.json.JSONObject;
+import utils.InfoAgent;
+import utils.InfoBomb;
+import utils.InfoItem;
 import view.PanelBomberman;
 import view.ViewBombermanGame;
 import view.ViewEnd;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
+import java.util.ArrayList;
 
 /**
  * @author tanguy, guillaume
@@ -35,32 +37,49 @@ public class ClientRunnable implements Runnable {
             try {
                 String response = input.readLine();
 
-                ObjectMapper objectMapper = new ObjectMapper();
+                JSONObject j = new JSONObject(response);
+                JSONArray JSONListAgents = j.getJSONArray("listInfoAgents");
+                JSONArray JSONwalls = j.getJSONArray("walls");
+                JSONArray JSONbreakablewalls = j.getJSONArray("breakablewalls");
 
-                BombermanGame bombermanGame = objectMapper.readValue(response, BombermanGame.class);
+                ArrayList<InfoAgent> listAgent = JsonConvert.ToListInfoAgent(JSONListAgents); // liste des agents
+                int size_x = j.getInt("size_x"); // taille de la map
+                int size_y = j.getInt("size_y");// taille de la map
+                boolean[][] walls = JsonConvert.ToListWalls(JSONwalls); // murs
+                boolean[][] breakablewalls = JsonConvert.ToListWalls(JSONbreakablewalls); // murs cassables
 
-                PanelBomberman panelBomberman = new PanelBomberman(
-                        bombermanGame.getpInputMap().getSize_x(),
-                        bombermanGame.getpInputMap().getSize_y(),
-                        bombermanGame.getpInputMap().getWalls(),
-                        bombermanGame.getpBreakable_walls(),
-                        bombermanGame.fusionListAgent()
-                );
+                PanelBomberman panelBomberman = new PanelBomberman(size_x, size_y, walls, breakablewalls, listAgent);
                 ViewBombermanGame viewBombermanGame = new ViewBombermanGame(panelBomberman, controllerClient);
 
                 ViewEnd viewEnd = null;
+                JSONArray JSONListItems;
+                JSONArray JSONListbombs;
+                ArrayList<InfoItem> listItems;
+                ArrayList<InfoBomb> listBombs;
+
                 while(true) {
                     response = input.readLine();
-                    bombermanGame = objectMapper.readValue(response, BombermanGame.class);
-                    if(viewEnd == null && (!bombermanGame.gameContinue())){
+
+                    j.clear();
+                    j = new JSONObject(response);
+                    JSONListAgents = j.getJSONArray("listInfoAgents");
+                    JSONbreakablewalls = j.getJSONArray("breakablewalls");
+                    JSONListItems = j.getJSONArray("listItems");
+                    JSONListbombs = j.getJSONArray("listBombs");
+
+                    listAgent = JsonConvert.ToListInfoAgent(JSONListAgents); // liste des agents
+                    breakablewalls = JsonConvert.ToListWalls(JSONbreakablewalls); // murs cassables
+                    listItems = JsonConvert.ToListInfoItem(JSONListItems); // liste des items
+                    listBombs = JsonConvert.ToListInfoBomb(JSONListbombs); // listes des bombes
+
+
+                    if(viewEnd == null && !j.getBoolean("gameContinue")){
                         int countAgent = 0;
                         int countEnemy = 0;
 
-                        for(Agent agent : bombermanGame.getpListBombermanAgent()) {
-                            if(agent.getpLiving()) countAgent = countAgent + 1;
-                        }
-                        for(Agent agent : bombermanGame.getpListBombermanEnemy()) {
-                            if(agent.getpLiving()) countEnemy = countEnemy + 1;
+                        for(InfoAgent agent : listAgent){
+                            if(agent.getType() == 'B') countAgent++;
+                            else countEnemy++;
                         }
 
                         int result = 0;
@@ -75,15 +94,9 @@ public class ClientRunnable implements Runnable {
                             result = 2;
                         }
 
-                        viewEnd = new ViewEnd(
-                                    result,
-                                    bombermanGame.getpListBombermanEnemy().size() - countEnemy,
-                                    countEnemy,
-                                    bombermanGame.getpListBombermanAgent().size() - countAgent,
-                                    countAgent,
-                                    controllerClient);
+                        viewEnd = new ViewEnd(result, 0, countEnemy, 0, countAgent, controllerClient);
                     }
-                    viewBombermanGame.updatePanel(bombermanGame);
+                    viewBombermanGame.updatePanel(breakablewalls, listAgent, listItems, listBombs);
                 }
             } catch (IOException e) {
                 e.printStackTrace();

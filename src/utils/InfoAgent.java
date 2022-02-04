@@ -1,8 +1,8 @@
 package utils;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
+import org.json.*;
 
-public class InfoAgent {
+public class InfoAgent{
 	private int x;
 	private int y;
 	private AgentAction agentAction;
@@ -11,9 +11,16 @@ public class InfoAgent {
 	private boolean isInvincible;
 	private boolean isSick;
 
-	@JsonCreator
-	public InfoAgent(){}
+	public InfoAgent(JSONObject j) {
+		this.x=j.getInt("x");
+		this.y=j.getInt("y");
+		this.agentAction = AgentAction.valueOf(j.getString("agentAction"));
+		this.color = ColorAgent.valueOf(j.getString("color"));;
+		this.type = j.getString("type").charAt(0);
+		this.isInvincible = j.getBoolean("invincible");
+		this.isSick = j.getBoolean("sick");;
 
+	}
 	public InfoAgent(int x, int y, AgentAction agentAction, char type, ColorAgent color, boolean isInvincible, boolean isSick) {
 		this.x=x;
 		this.y=y;
@@ -71,6 +78,18 @@ public class InfoAgent {
 	}
 	public void setSick(boolean isSick) {
 		this.isSick = isSick;
+	}
+
+	public JSONObject toJSON() {
+		JSONObject j = new JSONObject();
+		j.put("x", this.x);
+		j.put("y", this.y);
+		j.put("agentAction", this.agentAction);
+		j.put("color", this.color);
+		j.put("type", this.type + "");
+		j.put("isInvincible", this.isInvincible);
+		j.put("isSick", this.isSick);
+		return j;
 	}
 }
 	

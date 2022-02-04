@@ -1,20 +1,23 @@
 package utils;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
+import org.json.JSONObject;
 
 public class InfoItem {
 	private int x;
 	private int y;
 	private ItemType type;
 
-	@JsonCreator
-	public InfoItem() {}
+
+	public InfoItem(JSONObject j) {
+		this.x=j.getInt("x");
+		this.y=j.getInt("y");
+		this.type = ItemType.valueOf(j.getString("type"));
+	}
 
 	public InfoItem(int x, int y, ItemType type) {
 		this.x=x;
 		this.y=y;
 		this.type=type;
-
 	}
 
 	public int getX() {
@@ -36,6 +39,14 @@ public class InfoItem {
 	}
 	public void setType(ItemType type) {
 		this.type = type;
+	}
+
+	public JSONObject toJSON() {
+		JSONObject j = new JSONObject();
+		j.put("x", this.x);
+		j.put("y", this.y);
+		j.put("type", this.type);
+		return j;
 	}
 
 }

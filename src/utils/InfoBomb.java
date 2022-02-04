@@ -1,6 +1,6 @@
 package utils;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
+import org.json.JSONObject;
 
 public class InfoBomb {
 	private int x;
@@ -10,8 +10,16 @@ public class InfoBomb {
 
 	public StateBomb stateBomb;
 
-	@JsonCreator
-	public InfoBomb() {}
+	public InfoBomb(JSONObject j) {
+		this.x=j.getInt("x");
+		this.y=j.getInt("y");
+		this.range = j.getInt("range");
+		this.range_wall = new int[4];
+		for(int i = 0 ; i< 4 ; i++) {
+			this.range_wall[i]=range;
+		}
+		this.stateBomb =  StateBomb.Boom.valueOf(j.getString("stateBomb"));
+	}
 
 	public InfoBomb(int x, int y, int range, StateBomb stateBomb) {
 		this.x=x;
@@ -64,6 +72,16 @@ public class InfoBomb {
 	}
 	public void setRange(int range) {
 		this.range = range;
+	}
+
+	public JSONObject toJSON() {
+		JSONObject j = new JSONObject();
+		j.put("x", this.x);
+		j.put("y", this.y);
+		j.put("range", this.range);
+		j.put("range_wall", this.range_wall);
+		j.put("stateBomb", this.stateBomb);
+		return j;
 	}
 }
 	
