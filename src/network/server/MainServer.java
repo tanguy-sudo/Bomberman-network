@@ -13,7 +13,7 @@ import java.util.ArrayList;
 public class MainServer {
 
 	public static void main(String[] args) {
-		ArrayList<ServerThread> threadList = new ArrayList<ServerThread>();
+		ArrayList<ServerThreadSend> threadList = new ArrayList<ServerThreadSend>();
 		try (ServerSocket serversocket = new ServerSocket(5000)){
 			System.out.println("Serveur lancé...");
 
@@ -24,9 +24,12 @@ public class MainServer {
 
 			while(true) {
 				Socket socket = serversocket.accept();
-				ServerThread serverThread = new ServerThread(socket, threadList, controllerBombermanGame.getpGame());
-				threadList.add(serverThread);
-				serverThread.start();
+				ServerThreadListen serverThreadListen = new ServerThreadListen(socket, threadList, controllerBombermanGame.getpGame());
+				ServerThreadSend serverThreadSend = new ServerThreadSend(socket, threadList, controllerBombermanGame.getpGame());
+				threadList.add(serverThreadSend);
+				serverThreadListen.start();
+				serverThreadSend.start();
+
 			}
 		} catch (Exception e) {
 			System.out.println("Error occured in main: " + e.getStackTrace());
