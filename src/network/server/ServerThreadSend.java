@@ -27,7 +27,7 @@ public class ServerThreadSend extends Thread{
     }
 
     @Override
-    public void run() {
+    public synchronized void run() {
         try {
             //BufferedReader input = new BufferedReader( new InputStreamReader(socket.getInputStream()));
             output = new PrintWriter(socket.getOutputStream(),true);
@@ -50,7 +50,6 @@ public class ServerThreadSend extends Thread{
                     obj.put("listBombs", bombermanGame.getpListBomb());
                     obj.put("gameContinue", bombermanGame.gameContinue());
 
-                    //output.println(obj);
                     sendToALlClients(obj);
 
                     Thread.sleep(200);

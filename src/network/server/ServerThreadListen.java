@@ -38,7 +38,7 @@ public class ServerThreadListen extends Thread {
      * li l'action que le client envoie et lui renvoie le jeu modifié
      */
     @Override
-    public void run() {
+    public synchronized void run() {
         try {
             BufferedReader input = new BufferedReader( new InputStreamReader(socket.getInputStream()));
             //output = new PrintWriter(socket.getOutputStream(),true);
@@ -59,20 +59,11 @@ public class ServerThreadListen extends Thread {
                 JSONObject j = new JSONObject(outputString);
 
                 if(j != null){
-                    //obj.clear();
 
                     action = (AgentAction) j.getEnum(AgentAction.class, "action");
                     this.bombermanGame.updateActionUser(action, this.playerNumber);
 
-                    /*obj.put("listInfoAgents", bombermanGame.fusionListAgent());
-                    obj.put("breakablewalls", bombermanGame.getpBreakable_walls());
-                    obj.put("listItems", bombermanGame.getpListItems());
-                    obj.put("listBombs", bombermanGame.getpListBomb());
-                    obj.put("gameContinue", bombermanGame.gameContinue());
-
-                    output.println(obj);*/
                 }
-                Thread.sleep(500);
             }
         } catch (Exception e) {
             System.out.println("Error occured " +e.getMessage());
