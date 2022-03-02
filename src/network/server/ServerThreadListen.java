@@ -9,7 +9,6 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
-import java.util.ArrayList;
 
 /**
  * @author tanguy, guillaume
@@ -19,14 +18,12 @@ import java.util.ArrayList;
 public class ServerThreadListen extends Thread {
     private static int compteur = 0;
     private Socket socket;
-    //private ArrayList<ServerThreadSend> threadList;
     private PrintWriter output;
     private BombermanGame bombermanGame;
     private int playerNumber;
 
-    public ServerThreadListen(Socket socket, ArrayList<ServerThreadSend> threads, Game bombermanGame) {
+    public ServerThreadListen(Socket socket, Game bombermanGame) {
         this.socket = socket;
-        //this.threadList = threads;
         this.bombermanGame = (BombermanGame) bombermanGame;
         this.playerNumber = ServerThreadListen.compteur;
         this.bombermanGame.getpListBombermanAgent().get(this.playerNumber).setpStrategy(new BombermanManualStrategy());
@@ -43,22 +40,21 @@ public class ServerThreadListen extends Thread {
             BufferedReader input = new BufferedReader( new InputStreamReader(socket.getInputStream()));
             //output = new PrintWriter(socket.getOutputStream(),true);
 
-           /* JSONObject obj = new JSONObject();
-            obj.put("size_x", bombermanGame.getpInputMap().getSize_x());
-            obj.put("size_y", bombermanGame.getpInputMap().getSize_y());
-            obj.put("listInfoAgents", bombermanGame.fusionListAgent());
-            obj.put("walls", bombermanGame.getpInputMap().getWalls());
-            obj.put("breakablewalls", bombermanGame.getpBreakable_walls());
-            output.println(obj);*/
-
             String outputString;
             AgentAction action;
+            Boolean exit;
             while(true) {
 
                 outputString = input.readLine();
                 JSONObject j = new JSONObject(outputString);
 
                 if(j != null){
+
+                    exit = j.getBoolean("exit");
+                    if(exit){
+                        System.out.println("fin de partie");
+                        break;
+                    }
 
                     action = (AgentAction) j.getEnum(AgentAction.class, "action");
                     this.bombermanGame.updateActionUser(action, this.playerNumber);

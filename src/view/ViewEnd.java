@@ -56,7 +56,7 @@ public class ViewEnd {
         this.valueNbEnemyLivingLabel = new JLabel(String.valueOf(NbEnemyLiving), SwingConstants.CENTER);
         this.valueNbAlliesDeadLabel = new JLabel(String.valueOf(NbAlliesDead), SwingConstants.CENTER);
         this.valueNbAlliesLivingLabel = new JLabel(String.valueOf(NbAlliesLiving), SwingConstants.CENTER);
-        JButton backButton = new JButton("Restart the game");
+        JButton backButton = new JButton("Exit");
 
         backButton.addActionListener(new ActionListener() {
             @Override
@@ -65,7 +65,7 @@ public class ViewEnd {
                 for (Window w : Window.getWindows()) {
                     w.dispose();
                 }
-                controller.setRestart(true);
+                controller.setExit(true);
             }
         });
 

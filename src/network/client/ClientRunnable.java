@@ -7,6 +7,7 @@ import utils.InfoBomb;
 import utils.InfoItem;
 import view.PanelBomberman;
 import view.ViewBombermanGame;
+import view.ViewConnect;
 import view.ViewEnd;
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -23,7 +24,7 @@ public class ClientRunnable implements Runnable {
     private Socket socket;
     private BufferedReader input;
     private PrintWriter output;
-    public ControllerClient controllerClient;
+    private ControllerClient controllerClient;
 
     public ClientRunnable(Socket s) throws IOException {
         this.controllerClient = new ControllerClient();
@@ -57,46 +58,55 @@ public class ClientRunnable implements Runnable {
                 ArrayList<InfoItem> listItems;
                 ArrayList<InfoBomb> listBombs;
 
-                while(true) {
-                    response = input.readLine();
+                ViewConnect viewConnect = new ViewConnect(this.controllerClient);
 
-                    j.clear();
-                    j = new JSONObject(response);
-                    JSONListAgents = j.getJSONArray("listInfoAgents");
-                    JSONbreakablewalls = j.getJSONArray("breakablewalls");
-                    JSONListItems = j.getJSONArray("listItems");
-                    JSONListbombs = j.getJSONArray("listBombs");
+                while(!controllerClient.isExit()) {
 
-                    listAgent = JsonConvert.ToListInfoAgent(JSONListAgents); // liste des agents
-                    breakablewalls = JsonConvert.ToListWalls(JSONbreakablewalls); // murs cassables
-                    listItems = JsonConvert.ToListInfoItem(JSONListItems); // liste des items
-                    listBombs = JsonConvert.ToListInfoBomb(JSONListbombs); // listes des bombes
+                    if(controllerClient.isStart()) {
+                        viewBombermanGame.setVisible(true);
+
+                        response = input.readLine();
+
+                        j.clear();
+                        j = new JSONObject(response);
+                        JSONListAgents = j.getJSONArray("listInfoAgents");
+                        JSONbreakablewalls = j.getJSONArray("breakablewalls");
+                        JSONListItems = j.getJSONArray("listItems");
+                        JSONListbombs = j.getJSONArray("listBombs");
+
+                        listAgent = JsonConvert.ToListInfoAgent(JSONListAgents); // liste des agents
+                        breakablewalls = JsonConvert.ToListWalls(JSONbreakablewalls); // murs cassables
+                        listItems = JsonConvert.ToListInfoItem(JSONListItems); // liste des items
+                        listBombs = JsonConvert.ToListInfoBomb(JSONListbombs); // listes des bombes
+                        System.out.println(listAgent.get(0).getAgentAction());
 
 
-                    if(viewEnd == null && !j.getBoolean("gameContinue")){
-                        int countAgent = 0;
-                        int countEnemy = 0;
+                        if (viewEnd == null && !j.getBoolean("gameContinue")) {
+                            int countAgent = 0;
+                            int countEnemy = 0;
 
-                        for(InfoAgent agent : listAgent){
-                            if(agent.getType() == 'B') countAgent++;
-                            else countEnemy++;
+                            for (InfoAgent agent : listAgent) {
+                                if (agent.getType() == 'B') countAgent++;
+                                else countEnemy++;
+                            }
+
+                            int result = 0;
+                            if (countAgent == 0 && countEnemy == 0) {
+                                // égalité
+                                result = 0;
+                            } else if (countAgent == 0) {
+                                // perdu
+                                result = 1;
+                            } else if (countEnemy == 0) {
+                                // gagné
+                                result = 2;
+                            }
+
+                            viewEnd = new ViewEnd(result, 0, countEnemy, 0, countAgent, controllerClient);
                         }
-
-                        int result = 0;
-                        if(countAgent == 0 && countEnemy == 0) {
-                            // égalité
-                            result = 0;
-                        }else if(countAgent == 0) {
-                            // perdu
-                            result = 1;
-                        }else if(countEnemy == 0) {
-                            // gagné
-                            result = 2;
-                        }
-
-                        viewEnd = new ViewEnd(result, 0, countEnemy, 0, countAgent, controllerClient);
+                        viewBombermanGame.updatePanel(breakablewalls, listAgent, listItems, listBombs);
                     }
-                    viewBombermanGame.updatePanel(breakablewalls, listAgent, listItems, listBombs);
+                    System.out.println(controllerClient.isStart());
                 }
             } catch (IOException e) {
                 e.printStackTrace();
@@ -112,5 +122,5 @@ public class ClientRunnable implements Runnable {
     public ControllerClient getControllerClient(){
         return this.controllerClient;
     }
-    
+
 }

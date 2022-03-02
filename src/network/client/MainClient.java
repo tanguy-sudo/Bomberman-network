@@ -25,16 +25,22 @@ public class MainClient {
             AgentAction agentAction;
 
             while(true){
-                obj.clear();
-                if(clientRun.getControllerClient().isRestart()){
-                    obj.put("restart", clientRun.getControllerClient().isRestart());
-                }else{
+                System.out.println(clientRun.getControllerClient().isStart());
+                if(clientRun.getControllerClient().isStart()) {
+                    obj.clear();
+
+                    obj.put("exit", clientRun.getControllerClient().isExit());
                     agentAction = clientRun.getControllerClient().getAction();
                     obj.put("action", agentAction);
+
+                    output.println(obj);
+
+                    clientRun.getControllerClient().setAction(AgentAction.STOP);
+                    Thread.sleep(400);
                 }
-                output.println(obj);
-                clientRun.getControllerClient().setAction(AgentAction.STOP);
-                Thread.sleep(400);
+                if (clientRun.getControllerClient().isExit()) {
+                    break;
+                }
             }
 
         } catch (Exception e) {

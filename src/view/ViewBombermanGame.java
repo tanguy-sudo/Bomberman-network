@@ -28,7 +28,7 @@ public class ViewBombermanGame{
 		window.setSize(this.pPanelBomberman.getSizeX() * 50, this.pPanelBomberman.getSizeY() * 50);
 		window.setLocation(0, 0);
 		// affiche l'interface
-		window.setVisible(true);
+		window.setVisible(false);
 		window.setResizable(false);
 		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
@@ -44,6 +44,10 @@ public class ViewBombermanGame{
 	public void updatePanel(boolean[][] breakable_walls, ArrayList<InfoAgent> listInfoAgents , ArrayList<InfoItem> listInfoItems, ArrayList<InfoBomb> listInfoBombs) {
 			this.pPanelBomberman.updateInfoGame(breakable_walls, listInfoAgents, listInfoItems, listInfoBombs);
 			this.pPanelBomberman.repaint();
+	}
+
+	public void setVisible(boolean visible){
+		this.window.setVisible(visible);
 	}
 	
 	/**
