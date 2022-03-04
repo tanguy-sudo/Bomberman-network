@@ -20,24 +20,19 @@ public class MainClient {
             PrintWriter output = new PrintWriter(socket.getOutputStream(),true);
 
             ClientRunnable clientRun = new ClientRunnable(socket);
-            new Thread(clientRun).start();
             JSONObject obj = new JSONObject();
             AgentAction agentAction;
 
             while(true){
-                System.out.println(clientRun.getControllerClient().isStart());
-                if(clientRun.getControllerClient().isStart()) {
                     obj.clear();
 
                     obj.put("exit", clientRun.getControllerClient().isExit());
-                    agentAction = clientRun.getControllerClient().getAction();
-                    obj.put("action", agentAction);
-
+                    obj.put("action", clientRun.getControllerClient().getAction());
+                    obj.put("start", clientRun.getControllerClient().isStart());
                     output.println(obj);
 
                     clientRun.getControllerClient().setAction(AgentAction.STOP);
                     Thread.sleep(400);
-                }
                 if (clientRun.getControllerClient().isExit()) {
                     break;
                 }

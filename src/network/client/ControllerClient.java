@@ -17,11 +17,13 @@ import java.net.http.HttpResponse;
 public class ControllerClient {
     private AgentAction action;
     private boolean exit;
+    private ClientRunnable clientRunnable;
     private boolean start;
 
-    public ControllerClient() {
+    public ControllerClient(ClientRunnable client) {
         this.action = AgentAction.STOP;
         this.exit = false;
+        this.clientRunnable = client;
         this.start = false;
     }
 
@@ -33,7 +35,6 @@ public class ControllerClient {
     public void setAction(AgentAction pAction) {
         this.action = pAction;
     }
-
     public AgentAction getAction() {
         return action;
     }
@@ -41,19 +42,12 @@ public class ControllerClient {
     public boolean isExit() {
         return this.exit;
     }
-
     public void setExit(boolean restart) {
         this.exit = restart;
     }
 
-    public boolean isStart() {
-        return start;
-    }
-
-    public void setStart(boolean start) {
-        this.start = start;
-    }
-
+    public boolean isStart() { return start; }
+    public void setStart(boolean start) { this.start = start; }
 
     public void login(String username, String password, JFrame window ) {
         try {
@@ -64,7 +58,7 @@ public class ControllerClient {
             body.put("password", password);
 
             HttpRequest request = HttpRequest.newBuilder()
-                    .uri(URI.create("http://192.168.1.70:8080/BombermanWeb/SignInApi"))
+                    .uri(URI.create("http://192.168.1.70:8080/BombermanWeb/api/user"))
                     .POST(HttpRequest.BodyPublishers.ofString(String.valueOf(body)))
                     .header("Accept", "application.json")
                     .build();
@@ -76,6 +70,7 @@ public class ControllerClient {
             if (status == 201) {
                 System.out.println("success");
                 this.start = true;
+                this.clientRunnable.lunch();
                 window.dispose();
             } else if (status == 404) {
                 System.out.println("error");

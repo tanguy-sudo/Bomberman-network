@@ -9,6 +9,7 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
+import java.util.ArrayList;
 
 /**
  * @author tanguy, guillaume
@@ -21,13 +22,15 @@ public class ServerThreadListen extends Thread {
     private PrintWriter output;
     private BombermanGame bombermanGame;
     private int playerNumber;
+    private ArrayList<ServerThreadSend> threadList;
 
-    public ServerThreadListen(Socket socket, Game bombermanGame) {
+    public ServerThreadListen(Socket socket, Game bombermanGame, ArrayList<ServerThreadSend> threads) {
         this.socket = socket;
         this.bombermanGame = (BombermanGame) bombermanGame;
         this.playerNumber = ServerThreadListen.compteur;
         this.bombermanGame.getpListBombermanAgent().get(this.playerNumber).setpStrategy(new BombermanManualStrategy());
         ServerThreadListen.compteur++;
+        this.threadList = threads;
     }
 
     /**
@@ -43,6 +46,8 @@ public class ServerThreadListen extends Thread {
             String outputString;
             AgentAction action;
             Boolean exit;
+            Boolean start;
+            Boolean firstStart = true;
             while(true) {
 
                 outputString = input.readLine();
@@ -58,6 +63,12 @@ public class ServerThreadListen extends Thread {
 
                     action = (AgentAction) j.getEnum(AgentAction.class, "action");
                     this.bombermanGame.updateActionUser(action, this.playerNumber);
+
+                    start = j.getBoolean("start");
+                    if(start && firstStart && (this.threadList.size() == this.bombermanGame.getpListBombermanAgent().size())){
+                        this.bombermanGame.launch();
+                        firstStart = false;
+                    }
 
                 }
             }

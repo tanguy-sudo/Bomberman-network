@@ -19,11 +19,10 @@ public class MainServer {
 
 			ControllerBombermanGame controllerBombermanGame = new ControllerBombermanGame();
 			controllerBombermanGame.initGame("layouts/test.lay", "1", true);
-			controllerBombermanGame.getpGame().launch();
 
 			while(true) {
 				Socket socket = serversocket.accept();
-				ServerThreadListen serverThreadListen = new ServerThreadListen(socket, controllerBombermanGame.getpGame());
+				ServerThreadListen serverThreadListen = new ServerThreadListen(socket, controllerBombermanGame.getpGame(), threadList);
 				ServerThreadSend serverThreadSend = new ServerThreadSend(socket, threadList, controllerBombermanGame.getpGame());
 				threadList.add(serverThreadSend);
 				serverThreadListen.start();

@@ -2,6 +2,8 @@ package view;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import java.util.ArrayList;
 import javax.swing.JFrame;
 import network.client.ControllerClient;
@@ -15,7 +17,7 @@ import utils.InfoItem;
  * @author tanguy
  *
  */
-public class ViewBombermanGame{
+public class ViewBombermanGame implements WindowListener {
 	private PanelBomberman pPanelBomberman;
 	private JFrame window;
 	ControllerClient controller;
@@ -97,4 +99,39 @@ public class ViewBombermanGame{
 
         });
     }
+
+	@Override
+	public void windowOpened(WindowEvent windowEvent) {
+
+	}
+
+	@Override
+	public void windowClosing(WindowEvent windowEvent) {
+
+	}
+
+	@Override
+	public void windowClosed(WindowEvent windowEvent) {
+	this.controller.setExit(true);
+	}
+
+	@Override
+	public void windowIconified(WindowEvent windowEvent) {
+
+	}
+
+	@Override
+	public void windowDeiconified(WindowEvent windowEvent) {
+
+	}
+
+	@Override
+	public void windowActivated(WindowEvent windowEvent) {
+
+	}
+
+	@Override
+	public void windowDeactivated(WindowEvent windowEvent) {
+
+	}
 }

@@ -25,12 +25,15 @@ public class ClientRunnable implements Runnable {
     private BufferedReader input;
     private PrintWriter output;
     private ControllerClient controllerClient;
+    private boolean start;
 
     public ClientRunnable(Socket s) throws IOException {
-        this.controllerClient = new ControllerClient();
+        this.controllerClient = new ControllerClient(this);
         this.socket = s;
         this.input = new BufferedReader( new InputStreamReader(socket.getInputStream()));
         //this.output = new PrintWriter(socket.getOutputStream(),true);
+        ViewConnect viewConnect = new ViewConnect(this.controllerClient);
+        this.start = false;
     }
     @Override
     public void run() {
@@ -58,11 +61,7 @@ public class ClientRunnable implements Runnable {
                 ArrayList<InfoItem> listItems;
                 ArrayList<InfoBomb> listBombs;
 
-                ViewConnect viewConnect = new ViewConnect(this.controllerClient);
-
                 while(!controllerClient.isExit()) {
-
-                    if(controllerClient.isStart()) {
                         viewBombermanGame.setVisible(true);
 
                         response = input.readLine();
@@ -78,7 +77,6 @@ public class ClientRunnable implements Runnable {
                         breakablewalls = JsonConvert.ToListWalls(JSONbreakablewalls); // murs cassables
                         listItems = JsonConvert.ToListInfoItem(JSONListItems); // liste des items
                         listBombs = JsonConvert.ToListInfoBomb(JSONListbombs); // listes des bombes
-                        System.out.println(listAgent.get(0).getAgentAction());
 
 
                         if (viewEnd == null && !j.getBoolean("gameContinue")) {
@@ -106,8 +104,6 @@ public class ClientRunnable implements Runnable {
                         }
                         viewBombermanGame.updatePanel(breakablewalls, listAgent, listItems, listBombs);
                     }
-                    System.out.println(controllerClient.isStart());
-                }
             } catch (IOException e) {
                 e.printStackTrace();
             } finally {
@@ -123,4 +119,12 @@ public class ClientRunnable implements Runnable {
         return this.controllerClient;
     }
 
+    public void lunch(){
+        this.start = true;
+        new Thread(this).start();
+    }
+
+    public boolean isStart() {
+        return start;
+    }
 }
