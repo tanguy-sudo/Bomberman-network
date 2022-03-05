@@ -2,28 +2,25 @@ package network.server;
 
 import models.BombermanGame;
 import models.Game;
-import models.strategy.BombermanManualStrategy;
 import org.json.JSONObject;
-import utils.AgentAction;
-
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.util.ArrayList;
 
-import static java.lang.Thread.*;
-
 public class ServerThreadSend extends Thread{
+    private static int compteur = 0;
     private Socket socket;
     private ArrayList<ServerThreadSend> threadList;
     private PrintWriter output;
     private BombermanGame bombermanGame;
+    private int playerNumber;
 
     public ServerThreadSend(Socket socket, ArrayList<ServerThreadSend> threads, Game bombermanGame){
         this.socket = socket;
         this.threadList = threads;
         this.bombermanGame = (BombermanGame) bombermanGame;
+        this.playerNumber = ServerThreadSend.compteur;
+        ServerThreadSend.compteur++;
     }
 
     @Override
@@ -38,6 +35,7 @@ public class ServerThreadSend extends Thread{
             obj.put("listInfoAgents", bombermanGame.fusionListAgent());
             obj.put("walls", bombermanGame.getpInputMap().getWalls());
             obj.put("breakablewalls", bombermanGame.getpBreakable_walls());
+            obj.put("idPlayer", this.playerNumber);
 
             output.println(obj);
 

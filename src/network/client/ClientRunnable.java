@@ -45,12 +45,15 @@ public class ClientRunnable implements Runnable {
                 JSONArray JSONListAgents = j.getJSONArray("listInfoAgents");
                 JSONArray JSONwalls = j.getJSONArray("walls");
                 JSONArray JSONbreakablewalls = j.getJSONArray("breakablewalls");
+                Integer idPlayer = j.getInt("idPlayer");
 
                 ArrayList<InfoAgent> listAgent = JsonConvert.ToListInfoAgent(JSONListAgents); // liste des agents
                 int size_x = j.getInt("size_x"); // taille de la map
                 int size_y = j.getInt("size_y");// taille de la map
                 boolean[][] walls = JsonConvert.ToListWalls(JSONwalls); // murs
                 boolean[][] breakablewalls = JsonConvert.ToListWalls(JSONbreakablewalls); // murs cassables
+
+                listAgent.get(idPlayer).setColor(this.controllerClient.getCouleur_agent());
 
                 PanelBomberman panelBomberman = new PanelBomberman(size_x, size_y, walls, breakablewalls, listAgent);
                 ViewBombermanGame viewBombermanGame = new ViewBombermanGame(panelBomberman, controllerClient);
@@ -78,8 +81,11 @@ public class ClientRunnable implements Runnable {
                         listItems = JsonConvert.ToListInfoItem(JSONListItems); // liste des items
                         listBombs = JsonConvert.ToListInfoBomb(JSONListbombs); // listes des bombes
 
+                        listAgent.get(idPlayer).setColor(this.controllerClient.getCouleur_agent());
+
 
                         if (viewEnd == null && !j.getBoolean("gameContinue")) {
+
                             int countAgent = 0;
                             int countEnemy = 0;
 
@@ -99,6 +105,8 @@ public class ClientRunnable implements Runnable {
                                 // gagné
                                 result = 2;
                             }
+
+                            this.controllerClient.updateUserPlay(result);
 
                             viewEnd = new ViewEnd(result, 0, countEnemy, 0, countAgent, controllerClient);
                         }

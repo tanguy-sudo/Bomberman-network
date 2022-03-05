@@ -2,6 +2,7 @@ package network.client;
 
 import org.json.JSONObject;
 import utils.AgentAction;
+import utils.ColorAgent;
 
 import javax.swing.*;
 import java.io.IOException;
@@ -19,12 +20,18 @@ public class ControllerClient {
     private boolean exit;
     private ClientRunnable clientRunnable;
     private boolean start;
+    private String couleur_agent;
+    private String username;
+    private String password;
 
     public ControllerClient(ClientRunnable client) {
         this.action = AgentAction.STOP;
         this.exit = false;
         this.clientRunnable = client;
         this.start = false;
+        this.couleur_agent = "";
+        this.username = "";
+        this.password = "";
     }
 
     /**
@@ -49,7 +56,19 @@ public class ControllerClient {
     public boolean isStart() { return start; }
     public void setStart(boolean start) { this.start = start; }
 
-    public void login(String username, String password, JFrame window ) {
+    public ColorAgent getCouleur_agent() {
+        for(ColorAgent color : ColorAgent.values()){
+            if(this.couleur_agent == "color"){
+                return color;
+            }
+        }
+        return ColorAgent.DEFAULT;
+    }
+    public void setCouleur_agent(String couleur_agent) { this.couleur_agent = couleur_agent; }
+
+    public void login(String username, String password, JFrame window) {
+        this.username = username;
+        this.password = password;
         try {
             HttpClient client = HttpClient.newHttpClient();
 
@@ -70,6 +89,7 @@ public class ControllerClient {
             if (status == 201) {
                 System.out.println("success");
                 this.start = true;
+                this.couleur_agent = json.getString("couleur_agent");
                 this.clientRunnable.lunch();
                 window.dispose();
             } else if (status == 404) {
@@ -78,5 +98,20 @@ public class ControllerClient {
         } catch (IOException | InterruptedException e) {
             e.printStackTrace();
         }
+    }
+
+    public void updateUserPlay(int result){
+        HttpClient client = HttpClient.newHttpClient();
+
+        JSONObject body = new JSONObject();
+        body.put("username", this.username);
+        body.put("password", this.password);
+        body.put("result", result);
+
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(URI.create("http://192.168.1.70:8080/BombermanWeb/api/user"))
+                .POST(HttpRequest.BodyPublishers.ofString(String.valueOf(body)))
+                .header("Accept", "application.json")
+                .build();
     }
 }
