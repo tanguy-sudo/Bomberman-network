@@ -5,7 +5,7 @@
 4. [FAQs](#faqs)
 ### Info Générale
 ***
-Ce projet a été réalisé dans la cadre de ma formation en master informatique à l'université d'Angers en 1ème années pour de design patterns. 
+Ce projet a été réalisé dans la cadre de ma formation en master informatique à l'université d'Angers en 1ème années pour le cours de réseau. 
 ### Screenshot
 ![Image text](jeu.png)
 ## Technologies
@@ -14,7 +14,7 @@ Liste des technologies utilisées dans le projet :
 * [Git](https://git-scm.com/): Version 2.30.0
 * [GitKraken](https://www.gitkraken.com/) Version 7.5.2
 * [JDK](https://www.oracle.com/java/technologies/downloads/) Version 1.8.0
-* [Eclipse](https://www.eclipse.org/downloads/packages/release/mars/r/eclipse-ide-java-developers) Version 12-2021
+* [Intellij IDEA](https://www.jetbrains.com/fr-fr/idea/)
 
 ## Installation
 ***
