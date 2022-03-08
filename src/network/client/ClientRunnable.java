@@ -66,26 +66,28 @@ public class ClientRunnable implements Runnable {
                     if(this.controllerClient.isExit()){
                         break;
                     }
-                    response = input.readLine();
-                    j = new JSONObject(response);
+                    else {
+                        response = input.readLine();
+                        j = new JSONObject(response);
 
-                    if (j.has("start")) {
-                        JSONListAgents = j.getJSONArray("listInfoAgents");
-                        JSONbreakablewalls = j.getJSONArray("breakablewalls");
-                        JSONListItems = j.getJSONArray("listItems");
-                        JSONListbombs = j.getJSONArray("listBombs");
+                        if (j.has("start")) {
+                            JSONListAgents = j.getJSONArray("listInfoAgents");
+                            JSONbreakablewalls = j.getJSONArray("breakablewalls");
+                            JSONListItems = j.getJSONArray("listItems");
+                            JSONListbombs = j.getJSONArray("listBombs");
 
-                        listAgent = JsonConvert.ToListInfoAgent(JSONListAgents); // liste des agents
-                        breakablewalls = JsonConvert.ToListWalls(JSONbreakablewalls); // murs cassables
-                        listItems = JsonConvert.ToListInfoItem(JSONListItems); // liste des items
-                        listBombs = JsonConvert.ToListInfoBomb(JSONListbombs); // listes des bombes
+                            listAgent = JsonConvert.ToListInfoAgent(JSONListAgents); // liste des agents
+                            breakablewalls = JsonConvert.ToListWalls(JSONbreakablewalls); // murs cassables
+                            listItems = JsonConvert.ToListInfoItem(JSONListItems); // liste des items
+                            listBombs = JsonConvert.ToListInfoBomb(JSONListbombs); // listes des bombes
 
-                        viewBombermanGame.updatePanel(breakablewalls, listAgent, listItems, listBombs);
-                    }
+                            viewBombermanGame.updatePanel(breakablewalls, listAgent, listItems, listBombs);
+                        }
 
-                    if (viewEnd == null && !j.getBoolean("gameContinue")) {
-                    System.out.println("test");
-                        viewEnd = endGame(viewEnd, listAgent);
+                        if (viewEnd == null && !j.getBoolean("gameContinue")) {
+                            System.out.println("test");
+                            viewEnd = endGame(viewEnd, listAgent);
+                        }
                     }
                 }
             }
