@@ -21,6 +21,7 @@ import controller.ControllerBombermanGame;
  * Classe qui stocke les informations sur une partie et fait jouer les différents agents
  */
 public class BombermanGame extends Game {
+	private boolean firstStart;
 	private InputMap pInputMap;
 	private boolean pBreakable_walls[][];
 	private ArrayList<Agent> pListBombermanAgent;
@@ -50,6 +51,7 @@ public class BombermanGame extends Game {
 		this.pNiveau = niveau;
 		this.pController = controller;
 		this.pManual = manual;
+		this.firstStart = true;
 	}
 
 	/**
@@ -603,4 +605,7 @@ public class BombermanGame extends Game {
 	public void setpManual(boolean pManual) {
 		this.pManual = pManual;
 	}
+
+	public boolean isFirstStart() { return firstStart; }
+	public void setFirstStart(boolean firstStart) { this.firstStart = firstStart; }
 }

@@ -8,9 +8,10 @@ import java.awt.*;
 public class ViewConnect {
     public JTextField valueLogin;
     public JPasswordField valuePassword;
+    public JFrame window;
 
     public ViewConnect(ControllerClient controller){
-        JFrame window = new JFrame("Bomberman");
+        this.window = new JFrame("Bomberman");
         JPanel infoPanel = new JPanel();
         JPanel globalPanel = new JPanel();
 
@@ -51,6 +52,10 @@ public class ViewConnect {
         window.setSize(new Dimension(300, 150));
         window.setLocationRelativeTo(null);
         window.setVisible(true);
+    }
+
+    public void setVisible(boolean visible) {
+    this.window.setVisible(visible);
     }
 
 }

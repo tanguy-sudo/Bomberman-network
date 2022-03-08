@@ -8,25 +8,21 @@ import java.net.Socket;
 import java.util.ArrayList;
 
 public class ServerThreadSend extends Thread{
-    private static int compteur = 0;
     private Socket socket;
     private ArrayList<ServerThreadSend> threadList;
     private PrintWriter output;
     private BombermanGame bombermanGame;
-    private int playerNumber;
 
     public ServerThreadSend(Socket socket, ArrayList<ServerThreadSend> threads, Game bombermanGame){
         this.socket = socket;
         this.threadList = threads;
         this.bombermanGame = (BombermanGame) bombermanGame;
-        this.playerNumber = ServerThreadSend.compteur;
-        ServerThreadSend.compteur++;
+        this.threadList.add(this);
     }
 
     @Override
     public synchronized void run() {
         try {
-            //BufferedReader input = new BufferedReader( new InputStreamReader(socket.getInputStream()));
             output = new PrintWriter(socket.getOutputStream(),true);
 
             JSONObject obj = new JSONObject();
@@ -35,13 +31,14 @@ public class ServerThreadSend extends Thread{
             obj.put("listInfoAgents", bombermanGame.fusionListAgent());
             obj.put("walls", bombermanGame.getpInputMap().getWalls());
             obj.put("breakablewalls", bombermanGame.getpBreakable_walls());
-            obj.put("idPlayer", this.playerNumber);
-
+            obj.put("start", true);
+            obj.put("gameContinue", bombermanGame.gameContinue());
             output.println(obj);
 
             while(true) {
                     obj.clear();
 
+                    obj.put("start", true);
                     obj.put("listInfoAgents", bombermanGame.fusionListAgent());
                     obj.put("breakablewalls", bombermanGame.getpBreakable_walls());
                     obj.put("listItems", bombermanGame.getpListItems());
@@ -49,6 +46,10 @@ public class ServerThreadSend extends Thread{
                     obj.put("gameContinue", bombermanGame.gameContinue());
 
                     sendToALlClients(obj);
+
+                    if(!this.bombermanGame.gameContinue()){
+                        break;
+                    }
 
                     Thread.sleep(200);
             }

@@ -23,11 +23,7 @@ public class MainServer {
 			while(true) {
 				Socket socket = serversocket.accept();
 				ServerThreadListen serverThreadListen = new ServerThreadListen(socket, controllerBombermanGame.getpGame(), threadList);
-				ServerThreadSend serverThreadSend = new ServerThreadSend(socket, threadList, controllerBombermanGame.getpGame());
-				threadList.add(serverThreadSend);
 				serverThreadListen.start();
-				serverThreadSend.start();
-
 			}
 		} catch (Exception e) {
 			System.out.println("Error occured in main: " + e.getStackTrace());
