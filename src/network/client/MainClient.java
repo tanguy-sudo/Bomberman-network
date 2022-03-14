@@ -14,8 +14,10 @@ import java.net.Socket;
  */
 public class MainClient {
 
+    public final static String serveurAddresse = "localhost";
+
     public static void main(String[] args) {
-        try (Socket socket = new Socket("localhost", 5000)){
+        try (Socket socket = new Socket(MainClient.serveurAddresse, 5000)){
             PrintWriter output = new PrintWriter(socket.getOutputStream(),true);
 
             ClientRunnable clientRun = new ClientRunnable(socket);

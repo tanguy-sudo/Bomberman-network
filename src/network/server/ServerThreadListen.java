@@ -23,7 +23,7 @@ import java.util.ArrayList;
  * ServerThread gère l'envoie d'un objet JSON sous la forme d'une string a son client;
  */
 public class ServerThreadListen extends Thread {
-    private static int compteur = 0;
+    public static int compteur = 0;
     private Socket socket;
     private BombermanGame bombermanGame;
     private int playerNumber;
@@ -99,7 +99,7 @@ public class ServerThreadListen extends Thread {
             body.put("password", this.password);
 
             HttpRequest request = HttpRequest.newBuilder()
-                    .uri(URI.create("http://192.168.1.70:8080/BombermanWeb/api/user"))
+                    .uri(URI.create(MainServer.serveurAddresse + "/BombermanWeb/api/user"))
                     .POST(HttpRequest.BodyPublishers.ofString(String.valueOf(body)))
                     .header("Accept", "application.json")
                     .build();
@@ -138,7 +138,7 @@ public class ServerThreadListen extends Thread {
             body.put("id_game", ServerThreadListen.id_game);
 
             HttpRequest request = HttpRequest.newBuilder()
-                    .uri(URI.create("http://192.168.1.70:8080/BombermanWeb/api/play"))
+                    .uri(URI.create(MainServer.serveurAddresse + "/BombermanWeb/api/play"))
                     .POST(HttpRequest.BodyPublishers.ofString(String.valueOf(body)))
                     .header("Accept", "application.json")
                     .build();
@@ -154,7 +154,7 @@ public class ServerThreadListen extends Thread {
             HttpClient client = HttpClient.newHttpClient();
 
             HttpRequest request = HttpRequest.newBuilder()
-                    .uri(URI.create("http://192.168.1.70:8080/BombermanWeb/api/game"))
+                    .uri(URI.create(MainServer.serveurAddresse + "/BombermanWeb/api/game"))
                     .POST(HttpRequest.BodyPublishers.ofString("WithoutParam"))
                     .header("Accept", "application.json")
                     .build();
