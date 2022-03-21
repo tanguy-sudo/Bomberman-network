@@ -12,6 +12,7 @@ public class ServerThreadSend extends Thread{
     private ArrayList<ServerThreadSend> threadList;
     private PrintWriter output;
     private BombermanGame bombermanGame;
+    private int id_game;
 
     public ServerThreadSend(Socket socket, ArrayList<ServerThreadSend> threads, Game bombermanGame){
         this.socket = socket;
@@ -66,5 +67,13 @@ public class ServerThreadSend extends Thread{
         for(ServerThreadSend sT: threadList) {
             sT.output.println(obj);
         }
+    }
+
+    public int getId_game() {
+        return id_game;
+    }
+
+    public void setId_game(int id_game) {
+        this.id_game = id_game;
     }
 }

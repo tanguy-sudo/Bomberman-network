@@ -30,7 +30,6 @@ public class ServerThreadListen extends Thread {
     private ArrayList<ServerThreadSend> threadList;
     private String username;
     private String password;
-    private static int id_game;
     private String urlServeurWeb;
 
     public ServerThreadListen(Socket socket, Game bombermanGame, ArrayList<ServerThreadSend> threads) {
@@ -46,6 +45,7 @@ public class ServerThreadListen extends Thread {
         Properties pros;
         pros = new Properties();
         FileInputStream ip = null;
+
         try {
             ip = new FileInputStream("./src/resources/config.properties");
             pros.load(ip);
@@ -113,7 +113,7 @@ public class ServerThreadListen extends Thread {
             body.put("password", this.password);
 
             HttpRequest request = HttpRequest.newBuilder()
-                    .uri(URI.create(this.urlServeurWeb + "/BombermanWeb/api/user"))
+                    .uri(URI.create(this.urlServeurWeb + "user"))
                     .POST(HttpRequest.BodyPublishers.ofString(String.valueOf(body)))
                     .header("Accept", "application.json")
                     .build();
@@ -149,10 +149,10 @@ public class ServerThreadListen extends Thread {
             body.put("username", this.username);
             body.put("password", this.password);
             body.put("results", getResultsGame());
-            body.put("id_game", ServerThreadListen.id_game);
+            body.put("id_game", this.threadList.get(0).getId_game());
 
             HttpRequest request = HttpRequest.newBuilder()
-                    .uri(URI.create(this.urlServeurWeb + "/BombermanWeb/api/play"))
+                    .uri(URI.create(this.urlServeurWeb + "play"))
                     .POST(HttpRequest.BodyPublishers.ofString(String.valueOf(body)))
                     .header("Accept", "application.json")
                     .build();
@@ -168,7 +168,7 @@ public class ServerThreadListen extends Thread {
             HttpClient client = HttpClient.newHttpClient();
 
             HttpRequest request = HttpRequest.newBuilder()
-                    .uri(URI.create(this.urlServeurWeb + "/BombermanWeb/api/game"))
+                    .uri(URI.create(this.urlServeurWeb + "game"))
                     .POST(HttpRequest.BodyPublishers.ofString("WithoutParam"))
                     .header("Accept", "application.json")
                     .build();
@@ -176,7 +176,10 @@ public class ServerThreadListen extends Thread {
             HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
             JSONObject json = new JSONObject(response.body());
             int id_game = json.getInt("id_game");
-            ServerThreadListen.id_game = id_game;
+
+            for(ServerThreadSend threadSend : this.threadList) {
+                threadSend.setId_game(id_game);
+            }
         } catch (IOException | InterruptedException e) {
             e.printStackTrace();
         }

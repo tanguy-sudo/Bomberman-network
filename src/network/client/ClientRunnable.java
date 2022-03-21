@@ -17,7 +17,7 @@ import java.util.ArrayList;
 
 /**
  * @author tanguy, guillaume
- * écoute ce que le serveur envoie, puis créé une vue, et la mets à jour à chaque fois que le serveur envoie une information
+ * écoute ce que le serveur envoie, puis créé une vue, et la mets à jour à chaque fois que le serveur envoie des informations
  */
 public class ClientRunnable implements Runnable {
     private Socket socket;
@@ -101,28 +101,33 @@ public class ClientRunnable implements Runnable {
         }
     }
 
-        private ViewEnd endGame(ViewEnd viewEnd, ArrayList<InfoAgent> listAgent){
-            int countAgent = 0;
-            int countEnemy = 0;
+    /**
+     * @param viewEnd
+     * @param listAgent
+     * @return la vue de fin de partie
+     */
+    private ViewEnd endGame(ViewEnd viewEnd, ArrayList<InfoAgent> listAgent){
+        int countAgent = 0;
+        int countEnemy = 0;
 
-            for (InfoAgent agent : listAgent) {
-                if (agent.getType() == 'B') countAgent++;
-                else countEnemy++;
-            }
+        for (InfoAgent agent : listAgent) {
+            if (agent.getType() == 'B') countAgent++;
+            else countEnemy++;
+        }
 
-            int result = 0;
-            if (countAgent == 0 && countEnemy == 0) {
-                // égalité
-                result = 0;
-            } else if (countAgent == 0) {
-                // perdu
-                result = 1;
-            } else if (countEnemy == 0) {
-                // gagné
-                result = 2;
-            }
-
-            return new ViewEnd(result, 0, countEnemy, 0, countAgent, controllerClient);
+        int result = 0;
+        if (countAgent == 0 && countEnemy == 0) {
+            // égalité
+            result = 0;
+        } else if (countAgent == 0) {
+            // perdu
+            result = 1;
+        } else if (countEnemy == 0) {
+            // gagné
+            result = 2;
+        }
+        // Crée une vue de fin de partie avec les informations de la game
+        return new ViewEnd(result, 0, countEnemy, 0, countAgent, controllerClient);
     }
 
     public ControllerClient getControllerClient(){
