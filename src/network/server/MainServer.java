@@ -16,7 +16,6 @@ import java.util.Random;
  * Initialise une partie et lance le jeu
  */
 public class MainServer {
-	public final static String serveurAddresse = "http://localhost:8080";
 
 	public static void main(String[] args) {
 		ArrayList<Game> bombermanList = new ArrayList<Game>();

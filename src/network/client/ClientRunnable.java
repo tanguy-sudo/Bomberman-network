@@ -85,7 +85,6 @@ public class ClientRunnable implements Runnable {
                         }
 
                         if (viewEnd == null && !j.getBoolean("gameContinue")) {
-                            System.out.println("test");
                             viewEnd = endGame(viewEnd, listAgent);
                         }
                     }
