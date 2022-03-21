@@ -8,6 +8,11 @@ import java.util.ArrayList;
 
 public class JsonConvert {
 
+    /**
+     * Convertie une JSONArray en ArrayList<InfoAgent>
+     * @param list
+     * @return ArrayList<InfoAgent>
+     */
     public static ArrayList<InfoAgent> ToListInfoAgent(JSONArray list){
         ArrayList<InfoAgent> listAgent = new ArrayList<InfoAgent>();
         for(int i = 0 ; i < list.length() ; ++i){
@@ -17,6 +22,11 @@ public class JsonConvert {
         return listAgent;
     }
 
+    /**
+     * Convertie une JSONArray en boolean[][]
+     * @param list
+     * @return boolean[][]
+     */
     public static boolean[][] ToListWalls(JSONArray list){
         boolean[][] matrice = new boolean[list.length()][list.get(0).toString().split(",").length];
 
@@ -35,6 +45,11 @@ public class JsonConvert {
         return matrice;
     }
 
+    /**
+     * Convertie une JSONArray en ArrayList<InfoItem>
+     * @param list
+     * @return ArrayList<InfoItem>
+     */
     public static ArrayList<InfoItem> ToListInfoItem(JSONArray list){
         ArrayList<InfoItem> listItems = new ArrayList<InfoItem>();
         for(int i = 0 ; i < list.length() ; ++i){
@@ -44,6 +59,11 @@ public class JsonConvert {
         return listItems;
     }
 
+    /**
+     * Convertie une JSONArray en ArrayList<InfoBomb>
+     * @param list
+     * @return ArrayList<InfoBomb>
+     */
     public static ArrayList<InfoBomb> ToListInfoBomb(JSONArray list){
         ArrayList<InfoBomb> listBomb = new ArrayList<InfoBomb>();
         for(int i = 0 ; i < list.length() ; ++i){

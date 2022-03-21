@@ -12,7 +12,7 @@ import java.util.Random;
 /**
  * @author tanguy, guillaume
  * Initialise un serverSocket sur le port 5000 et crée des threads pour chacun des clients qui vont se connecter dessus
- * Initialise une partie et lance le jeu
+ * Initialise des parties
  */
 public class MainServer {
 
@@ -20,6 +20,7 @@ public class MainServer {
 		ArrayList<Game> bombermanList = new ArrayList<Game>();
 		ArrayList<ArrayList<ServerThreadSend>> threadList = new ArrayList<ArrayList<ServerThreadSend>>();
 
+		// Crée une liste de partie
 		for(int i = 0 ; i < 5 ; i++) {
 			ControllerBombermanGame controllerBombermanGame = new ControllerBombermanGame();
 			controllerBombermanGame.initGame("layouts/" + randomMap() + ".lay", "1", true);
@@ -36,11 +37,14 @@ public class MainServer {
 				Socket socket = serversocket.accept();
 				BombermanGame bombermanGame = (BombermanGame) bombermanList.get(numeroGame);
 				ArrayList<ServerThreadSend> serverThreadSendArrayList = threadList.get(numeroGame);
+				// Si le nombre de joueurs connectés est suffisant on incrémente un compteur, pour la prochaine partie
 				if(serverThreadSendArrayList.size() == bombermanGame.getpListBombermanAgent().size()){
 					numeroGame++;
+					// On remet à zéro le compteur de joueur
 					ServerThreadListen.compteur = 0;
 					System.out.println("Game : " + numeroGame);
 				}
+				// On crée un thread qui écoute ce que le client envoie
 				ServerThreadListen serverThreadListen = new ServerThreadListen(socket, bombermanList.get(numeroGame), threadList.get(numeroGame));
 				serverThreadListen.start();
 			}
@@ -50,6 +54,10 @@ public class MainServer {
 		}
 	}
 
+	/**
+	 * Choisie une map aléatoirement
+	 * @return le nom de la map
+	 */
 	public static String randomMap() {
 		Random r = new Random();
 		switch(r.nextInt(5)) {

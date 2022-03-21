@@ -27,7 +27,7 @@ public class ViewConnect {
 
 
         buttonConnect.addActionListener(val -> {
-            controller.login(valueLogin.getText(), String.valueOf(valuePassword.getPassword()), window);
+            controller.login(valueLogin.getText(), String.valueOf(valuePassword.getPassword()));
         });
 
         infoPanel.setLayout(infoGridlayout);

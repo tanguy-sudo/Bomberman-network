@@ -26,6 +26,11 @@ public class ClientRunnable implements Runnable {
     private boolean sendLoginPassword;
     private ViewConnect viewConnect;
 
+    /**
+     * Constructeur
+     * @param s
+     * @throws IOException
+     */
     public ClientRunnable(Socket s) throws IOException {
         this.controllerClient = new ControllerClient(this);
         this.socket = s;
@@ -33,6 +38,7 @@ public class ClientRunnable implements Runnable {
         this.viewConnect = new ViewConnect(this.controllerClient);
         this.sendLoginPassword = false;
     }
+
     @Override
     public void run() {
         try {
@@ -42,6 +48,7 @@ public class ClientRunnable implements Runnable {
             if (j.has("start")) {
                 this.viewConnect.setVisible(false);
                 this.sendLoginPassword = false;
+                //Récupère les informations envoyer depuis le serveur
                 JSONArray JSONListAgents = j.getJSONArray("listInfoAgents");
                 JSONArray JSONwalls = j.getJSONArray("walls");
                 JSONArray JSONbreakablewalls = j.getJSONArray("breakablewalls");
@@ -52,7 +59,9 @@ public class ClientRunnable implements Runnable {
                 boolean[][] walls = JsonConvert.ToListWalls(JSONwalls); // murs
                 boolean[][] breakablewalls = JsonConvert.ToListWalls(JSONbreakablewalls); // murs cassables
 
+                // Crée le panel qui va contenir l'affichage du jeu
                 PanelBomberman panelBomberman = new PanelBomberman(size_x, size_y, walls, breakablewalls, listAgent);
+                // Instancie la vue
                 ViewBombermanGame viewBombermanGame = new ViewBombermanGame(panelBomberman, controllerClient);
                 viewBombermanGame.setVisible(true);
 
@@ -63,13 +72,16 @@ public class ClientRunnable implements Runnable {
                 ArrayList<InfoBomb> listBombs = null;
 
                 while (true) {
+                    // Vérifie que le joueur n'a pas quitté la partie
                     if(this.controllerClient.isExit()){
                         break;
                     }
                     else {
+                        // Récupère la chaine de caractère que le serveur a envoyé
                         response = input.readLine();
                         j = new JSONObject(response);
 
+                        // Le serveur envoie start si tous les joueurs sont bien connectés
                         if (j.has("start")) {
                             JSONListAgents = j.getJSONArray("listInfoAgents");
                             JSONbreakablewalls = j.getJSONArray("breakablewalls");
@@ -81,6 +93,7 @@ public class ClientRunnable implements Runnable {
                             listItems = JsonConvert.ToListInfoItem(JSONListItems); // liste des items
                             listBombs = JsonConvert.ToListInfoBomb(JSONListbombs); // listes des bombes
 
+                            // Mets à jour le panel
                             viewBombermanGame.updatePanel(breakablewalls, listAgent, listItems, listBombs);
                         }
 
@@ -130,12 +143,8 @@ public class ClientRunnable implements Runnable {
         return new ViewEnd(result, 0, countEnemy, 0, countAgent, controllerClient);
     }
 
-    public ControllerClient getControllerClient(){
-        return this.controllerClient;
-    }
+    public ControllerClient getControllerClient(){ return this.controllerClient; }
 
     public void setSendLoginPassword(boolean sendLoginPassword){ this.sendLoginPassword = sendLoginPassword; }
-    public boolean isSendLoginPassword() {
-        return sendLoginPassword;
-    }
+    public boolean isSendLoginPassword() { return sendLoginPassword;}
 }

@@ -1,7 +1,6 @@
 package network.client;
 
 import utils.AgentAction;
-import javax.swing.*;
 
 /**
  * @author tanguy, guillaume
@@ -33,12 +32,12 @@ public class ControllerClient {
         return action;
     }
 
-    public boolean isExit() {
-        return this.exit;
-    }
-    public void setExit(boolean restart) {
-        this.exit = restart;
-    }
+    /**
+     * Mets à jour la variable booléenne qui indique si le joueur à quitter la partie
+     * @return un boolean
+     */
+    public boolean isExit() { return this.exit; }
+    public void setExit(boolean restart) {this.exit = restart;}
 
     public String getUsername() { return username; }
     public void setUsername(String username) { this.username = username; }
@@ -46,7 +45,8 @@ public class ControllerClient {
     public String getPassword() { return password; }
     public void setPassword(String password) { this.password = password; }
 
-    public void login(String username, String password, JFrame window) {
+    // Mets à jour les informations de connexion et lance le thread qui va écouter ce que le serveur envoie
+    public void login(String username, String password) {
         this.username = username;
         this.password = password;
         this.clientRunnable.setSendLoginPassword(true);
