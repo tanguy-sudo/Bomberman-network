@@ -21,7 +21,21 @@ Liste des technologies utilisées dans le projet :
 Pour installer le projet vous pouvez le cloner avec une clé SSH, ou bien télécharger le dossier ZIP.
 ```
 $ git@github.com:tanguy-sudo/Bomberman-network.git
-
+```
+## Echange entre client et le serveur
+Message échangé du serveur vers le client la première fois :
+```
+ size_x, size_y, listInfoAgents, walls, breakablewalls, start(booléen qui indique le début de la partie), gameContinue    size_x, size_y, listInfoAgents, walls, breakablewalls, 
+ gameContinue(qui indique si la partie continue)
+```
+Message échangé du serveur vers le client les fois d'après :
+```  
+ start(booléen qui indique le début de la partie), listInfoAgents, breakablewalls, listItems, listBombs, 
+ gameContinue(qui indique si la partie continue)
+```
+Message échangé du client vers le serveur :
+```
+ Username, password, action(l'action que le joueur à fait), exit(booléan qui indique la fin de partie)
 ```
  
 ## FAQs
