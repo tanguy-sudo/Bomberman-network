@@ -44,6 +44,9 @@ public class MainServer {
 					ServerThreadListen.compteur = 0;
 					System.out.println("Game : " + numeroGame);
 				}
+				if(numeroGame == 5) {
+					break;
+				}
 				// On crée un thread qui écoute ce que le client envoie
 				ServerThreadListen serverThreadListen = new ServerThreadListen(socket, bombermanList.get(numeroGame), threadList.get(numeroGame));
 				serverThreadListen.start();

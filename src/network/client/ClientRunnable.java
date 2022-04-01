@@ -104,12 +104,12 @@ public class ClientRunnable implements Runnable {
                 }
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("Socket fermé");
         } finally {
             try {
                 input.close();
             } catch (Exception e) {
-                e.printStackTrace();
+                System.out.println("Socket fermé");
             }
         }
     }

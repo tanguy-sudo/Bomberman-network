@@ -64,7 +64,7 @@ public class MainClient {
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("Fin de partie");
         }
     }
 }
