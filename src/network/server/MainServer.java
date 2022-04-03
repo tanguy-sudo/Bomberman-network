@@ -21,7 +21,7 @@ public class MainServer {
 		ArrayList<ArrayList<ServerThreadSend>> threadList = new ArrayList<ArrayList<ServerThreadSend>>();
 
 		// Crée une liste de partie
-		for(int i = 0 ; i < 5 ; i++) {
+		for(int i = 0 ; i < 10 ; i++) {
 			ControllerBombermanGame controllerBombermanGame = new ControllerBombermanGame();
 			controllerBombermanGame.initGame("layouts/" + randomMap() + ".lay", "1", true);
 			bombermanList.add(controllerBombermanGame.getpGame());
